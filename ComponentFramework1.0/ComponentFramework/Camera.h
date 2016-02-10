@@ -17,7 +17,9 @@ enum Camera_Movement {
 	FORWARD = 0,
 	RIGHT = 1,
 	BACKWARD = 2,
-	LEFT = 3
+	LEFT = 3,
+	UP = 4,
+	DOWN = 5
 };
 
 // Default camera values
@@ -42,6 +44,8 @@ public:
 	bool moveBackWard;
 	bool moveRight;
 	bool moveLeft;
+	bool moveUp;
+	bool moveDown;
 
 	// Constructor with vectors
 	Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), GLfloat yaw = YAW, GLfloat pitch = PITCH) : MovementSpeed(SPEED), MouseSensitivity(SENSITIVTY), Zoom(ZOOM)
@@ -56,6 +60,8 @@ public:
 		moveForward = false;
 		moveLeft = false;
 		moveRight = false;
+		moveUp = false;
+		moveDown = false;
 
 		this->updateCameraVectors();
 	}
@@ -72,6 +78,8 @@ public:
 		moveForward = false;
 		moveLeft = false;
 		moveRight = false;
+		moveUp = false;
+		moveDown = false;
 
 		this->updateCameraVectors();
 	}
@@ -96,6 +104,10 @@ public:
 			_transform->position -= _transform->right * velocity;
 		if (direction == Camera_Movement::RIGHT)
 			_transform->position += _transform->right * velocity;
+		if (direction == Camera_Movement::UP)
+			_transform->position += _transform->worldUp * velocity;
+		if (direction == Camera_Movement::DOWN)
+			_transform->position -= _transform->worldUp * velocity;
 	}
 
 	// Processes input received from a mouse input system. Expects the offset value in both the x and y direction.
@@ -157,6 +169,10 @@ public:
 			ProcessMovement(LEFT, deltaTime);
 		if (moveRight)
 			ProcessMovement(RIGHT, deltaTime);
+		if (moveUp)
+			ProcessMovement(UP, deltaTime);
+		if (moveDown)
+			ProcessMovement(DOWN, deltaTime);
 	}
 
 	virtual void ReceiveNetworkSDLEvent(const SDL_Event& sdlEvent) override
@@ -174,6 +190,13 @@ public:
 
 				if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_D)
 					moveRight = true;
+
+				if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_E)
+					moveUp = true;
+
+				if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_Q)
+					moveDown = true;
+
 				break;
 			case SDL_KEYUP:
 				if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_W)
@@ -187,6 +210,12 @@ public:
 
 				if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_D)
 					moveRight = false;
+
+				if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_E)
+					moveUp = false;
+
+				if (sdlEvent.key.keysym.scancode == SDL_SCANCODE_Q)
+					moveDown = false;
 				break;
 			default:
 				break;

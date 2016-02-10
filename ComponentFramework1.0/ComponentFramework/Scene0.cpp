@@ -291,6 +291,13 @@ void Scene0::HandleEvents(const SDL_Event& SDLEvent, float deltaTime){
 
 			if (SDLEvent.key.keysym.scancode == SDL_SCANCODE_D)
 				viewCamera->moveRight = true;
+
+			if (SDLEvent.key.keysym.scancode == SDL_SCANCODE_E)
+				viewCamera->moveUp = true;
+
+			if (SDLEvent.key.keysym.scancode == SDL_SCANCODE_Q)
+				viewCamera->moveDown = true;
+
 			break;
 		case SDL_KEYUP:
 			if (!nM->isServer)
@@ -306,6 +313,13 @@ void Scene0::HandleEvents(const SDL_Event& SDLEvent, float deltaTime){
 
 			if (SDLEvent.key.keysym.scancode == SDL_SCANCODE_D)
 				viewCamera->moveRight = false;
+
+			if (SDLEvent.key.keysym.scancode == SDL_SCANCODE_E)
+				viewCamera->moveUp = false;
+
+			if (SDLEvent.key.keysym.scancode == SDL_SCANCODE_Q)
+				viewCamera->moveDown = false;
+
 			break;
 		default:
 			break;
