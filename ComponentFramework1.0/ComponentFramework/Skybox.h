@@ -67,19 +67,19 @@ public:
 		glBindVertexArray(0);
 
 
-		/*faces.push_back("Images/Skybox/right.jpg");
+		faces.push_back("Images/Skybox/right.jpg");
 		faces.push_back("Images/Skybox/left.jpg");
 		faces.push_back("Images/Skybox/top.jpg");
 		faces.push_back("Images/Skybox/bottom.jpg");
 		faces.push_back("Images/Skybox/back.jpg");
-		faces.push_back("Images/Skybox/front.jpg");*/
+		faces.push_back("Images/Skybox/front.jpg");
 
-		faces.push_back("Images/Skybox/Hell/right.PNG");
+		/*faces.push_back("Images/Skybox/Hell/right.PNG");
 		faces.push_back("Images/Skybox/Hell/left.PNG");
 		faces.push_back("Images/Skybox/Hell/up.PNG");
 		faces.push_back("Images/Skybox/Hell/down.png");
 		faces.push_back("Images/Skybox/Hell/back.png");
-		faces.push_back("Images/Skybox/Hell/front.png");
+		faces.push_back("Images/Skybox/Hell/front.png");*/
 
 		texture = loadCubeMap(faces);
 	}

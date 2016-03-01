@@ -39,21 +39,21 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\GameDev\SDL2-2.0.3\include;C:\GameDev\glew-1.13.0\include;C:\GameDev\assimp;C:\GameDev\SOIL\include;C:\GameDev\glm-0.9.7.1;C:\GameDev\SDL2_net-2.0.0\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\GameDev\SOIL\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\SDL2-2.0.3\include;..\glew-1.13.0\include;..\assimp;..\SOIL\include;..\glm-0.9.7.1;..\SDL2_net-2.0.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\SOIL\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\GameDev\glm-0.9.7.1;C:\GameDev\assimp;C:\GameDev\SOIL\include;C:\GameDev\SDL2_net-2.0.0\include;C:\GameDev\Havok\hk2014_1_0_r1\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\glm-0.9.7.1;..\assimp;..\include;..\SDL2_net-2.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>C:\GameDev\SDL2-2.0.3\lib\x86\SDL2.lib;C:\GameDev\SDL2-2.0.3\lib\x86\SDL2main.lib;C:\GameDev\glew-1.13.0\lib\Release\Win32\glew32.lib;C:\GameDev\glew-1.13.0\lib\Release\Win32\glew32s.lib;C:\Program Files (x86)\Windows Kits\8.1\Lib\winv6.3\um\x86\OpenGL32.lib;C:\GameDev\assimp\lib\assimp.lib;C:\GameDev\SOIL\lib\SOIL.lib;C:\GameDev\SDL2_net-2.0.0\lib\x86\SDL2_net.lib;hkBase.lib;hkVisualize.lib;hkInternal.lib;hkSerialize.lib;hkGeometryUtilities.lib;hkImageUtilities.lib;hkcdInternal.lib;hkcdCollide.lib;hkpCollide.lib;hkpConstraint.lib;hkpConstraintSolver.lib;hkpDynamics.lib;hkpInternal.lib;hkpUtilities.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32.lib;glew32s.lib;OpenGL32.lib;assimp.lib;SOIL.lib;SDL2_net.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>C:\GameDev\Havok\hk2014_1_0_r1\Lib\win32_vs2012_win8\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\GameDev\MayneGameEngine\SDL2-2.0.3\lib\x86;C:\GameDev\MayneGameEngine\glew-1.13.0\lib\Release\Win32;C:\Program Files (x86)\Windows Kits\8.1\Lib\winv6.3\um\x86;C:\GameDev\MayneGameEngine\assimp\lib;C:\GameDev\MayneGameEngine\SOIL\lib;C:\GameDev\MayneGameEngine\SDL2_net-2.0.0\lib\x86</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
