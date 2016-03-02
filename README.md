@@ -13,3 +13,8 @@ All of the necessary files are included in the repo.
 This Graphics Renderer is the begining of a game engine I have been working on during my spare time. It uses modern OpenGL
 to create great looking scenes. So far the rendering capabilities include: Textures, Normal Maps, Parralax Mapping, Directional Lights,
 Point Lights, Soft Shadows, SkyBoxes and Model Loading.
+
+It also has basic Networking right now, so once the program starts it will prompt you in the window to choose whether your the server
+or not. Select either 'Y' or 'N' and be on your way. It makes no difference which one you choose for a single app, however if you want
+to use the networking you must select the server then open another instance and select the client. Moving the camera in the client will
+now also move the camera on the server.
