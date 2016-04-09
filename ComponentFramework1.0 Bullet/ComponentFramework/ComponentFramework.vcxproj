@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{F2DCB53B-8983-41C9-844F-9845F3C1161A}</ProjectGuid>
+    <RootNamespace>ComponentFramework</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>C:\GameDev\SDL2-2.0.3\include;C:\GameDev\glew-1.13.0\include;C:\GameDev\assimp;C:\GameDev\SOIL\include;C:\GameDev\glm-0.9.7.1;C:\GameDev\SDL2_net-2.0.0\include;C:\GameDev\Havok\hk2014_1_0_r1\Source;C:\GameDev\BulletBuild\src;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\GameDev\Havok\hk2014_1_0_r1\Lib\win32_vs2012_win8\debug;C:\GameDev\SOIL\lib;C:\GameDev\BulletBuild\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\GameDev\bullet3\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <OmitDefaultLibName>false</OmitDefaultLibName>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>C:\GameDev\SDL2-2.0.3\lib\x86\SDL2.lib;C:\GameDev\SDL2-2.0.3\lib\x86\SDL2main.lib;C:\GameDev\glew-1.13.0\lib\Release\Win32\glew32.lib;C:\GameDev\glew-1.13.0\lib\Release\Win32\glew32s.lib;C:\Program Files (x86)\Windows Kits\8.1\Lib\winv6.3\um\x86\OpenGL32.lib;C:\GameDev\assimp\lib\assimp.lib;C:\GameDev\SOIL\lib\SOIL.lib;C:\GameDev\SDL2_net-2.0.0\lib\x86\SDL2_net.lib;hkBase.lib;hkVisualize.lib;hkInternal.lib;hkSerialize.lib;hkGeometryUtilities.lib;hkImageUtilities.lib;hkcdInternal.lib;hkcdCollide.lib;hkpCollide.lib;hkpConstraint.lib;hkpConstraintSolver.lib;hkpDynamics.lib;hkpInternal.lib;hkpUtilities.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Console</SubSystem>
+      <AdditionalLibraryDirectories>C:\GameDev\Havok\hk2014_1_0_r1\Lib\win32_vs2012_win8\debug;C:\GameDev\BulletBuild\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\GameDev\bullet3\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="BulletPhysics.cpp" />
+    <ClCompile Include="Debug.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameSceneManager.cpp" />
+    <ClCompile Include="GLDebugDrawer.cpp" />
+    <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="MMath.cpp" />
+    <ClCompile Include="Model.cpp" />
+    <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Scene0.cpp" />
+    <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="ShaderManager.cpp" />
+    <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="VMath.cpp" />
+    <ClCompile Include="Window.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BulletPhysics.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Component.h" />
+    <ClInclude Include="Debug.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameSceneManager.h" />
+    <ClInclude Include="GLDebugDrawer.h" />
+    <ClInclude Include="Graphics.h" />
+    <ClInclude Include="Light.h" />
+    <ClInclude Include="Material.h" />
+    <ClInclude Include="MaterialManager.h" />
+    <ClInclude Include="MathUtil.h" />
+    <ClInclude Include="Matrix.h" />
+    <ClInclude Include="MColor.h" />
+    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="MMath.h" />
+    <ClInclude Include="Model.h" />
+    <ClInclude Include="MyMotionState.h" />
+    <ClInclude Include="NetworkManager.h" />
+    <ClInclude Include="NetworkListener.h" />
+    <ClInclude Include="Object.h" />
+    <ClInclude Include="Renderer.h" />
+    <ClInclude Include="RigidBody.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="Scene0.h" />
+    <ClInclude Include="Shader.h" />
+    <ClInclude Include="ShaderManager.h" />
+    <ClInclude Include="Skybox.h" />
+    <ClInclude Include="Texture.h" />
+    <ClInclude Include="TextureManager.h" />
+    <ClInclude Include="Timer.h" />
+    <ClInclude Include="Transform.h" />
+    <ClInclude Include="Vector.h" />
+    <ClInclude Include="VMAth.h" />
+    <ClInclude Include="Window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="texture.frag" />
+    <None Include="texture.vert" />
+    <None Include="triangles.frag" />
+    <None Include="triangles.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BulletBuild\src\BulletCollision\BulletCollision.vcxproj">
+      <Project>{9f1fb4dc-82d0-3ff0-b904-dd4367c7bbf1}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BulletBuild\src\BulletDynamics\BulletDynamics.vcxproj">
+      <Project>{66661f77-9ea8-324e-a46c-9206b2be5e28}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\BulletBuild\src\LinearMath\LinearMath.vcxproj">
+      <Project>{24c89ca5-f893-3a98-999a-ed09888039d8}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
