@@ -4,7 +4,7 @@ void Model::loadModel(string path)
 {
 	// Read file via ASSIMP
 	Assimp::Importer importer;
-	const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
+	const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
 	// Check for errors
 	if (!scene || scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // if is Not Zero
 	{
@@ -19,10 +19,10 @@ void Model::loadModel(string path)
 }
 
 
-void Model::Draw(Shader shader)
+void Model::Draw(Shader* shader)
 {
 	for (auto it = meshes.begin(); it != meshes.end(); it++)
-		it->Draw(shader);
+		(*it)->Draw(shader);
 }
 
 void Model::processNode(aiNode* node, const aiScene* scene)
@@ -43,12 +43,14 @@ void Model::processNode(aiNode* node, const aiScene* scene)
 
 }
 
-Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
+Mesh* Model::processMesh(aiMesh* mesh, const aiScene* scene)
 {
 	// Data to fill
 	vector<Vertex> vertices;
 	vector<GLuint> indices;
 	vector<Tex> textures;
+
+	Mesh* thisMesh = new Mesh(EMeshType::CUBE);
 
 	// Walk through each of the mesh's vertices
 	for (GLuint i = 0; i < mesh->mNumVertices; i++)
@@ -65,6 +67,12 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 		vector.y = mesh->mNormals[i].y;
 		vector.z = mesh->mNormals[i].z;
 		vertex.Normal = vector;
+
+		vector.x = mesh->mTangents[i].x;
+		vector.y = mesh->mTangents[i].y;
+		vector.z = mesh->mTangents[i].z;
+		vertex.Tangents = vector;
+
 		// Texture Coordinates
 		if (mesh->mTextureCoords[0]) // Does the mesh contain texture coordinates?
 		{
@@ -103,15 +111,40 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 		// Normal: texture_normalN
 
 		// 1. Diffuse maps
-		vector<Tex> diffuseMaps = this->loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
-		textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-		// 2. Specular maps
-		vector<Tex> specularMaps = this->loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
-		textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+		//Material* mat = new Material();
+
+		/*aiString str;
+		material->GetTexture(aiTextureType::aiTextureType_DIFFUSE, 0, &str);*/
+
+		Material* mat = new Material();
+		aiString str;
+		
+		material->GetTexture(aiTextureType_DIFFUSE, 0, &str);
+		string filename = string(str.C_Str());
+		filename = this->directory + '/' + filename;
+		mat->AttachTexture(filename.c_str(), TextureType::DIFFUSE);
+
+		material->GetTexture(aiTextureType_SPECULAR, 0, &str);
+		filename = string(str.C_Str());
+		filename = this->directory + '/' + filename;
+		mat->AttachTexture(filename.c_str(), TextureType::SPECULAR);
+
+		material->GetTexture(aiTextureType_HEIGHT, 0, &str);
+		filename = string(str.C_Str());
+		filename = this->directory + '/' + filename;
+		//mat->AttachTexture(filename.c_str(), TextureType::NORMAL);
+
+		thisMesh = new Mesh(vertices, indices, textures);
+		thisMesh->material = mat;
+		//vector<Tex> diffuseMaps = this->loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+		//textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
+		//// 2. Specular maps
+		//vector<Tex> specularMaps = this->loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
+		//textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
 	}
 
 	// Return a mesh object created from the extracted mesh data
-	return Mesh(vertices, indices, textures);
+	return thisMesh;
 }
 
 vector<Tex> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, string typeName)

@@ -356,11 +356,16 @@ void Mesh::setupMesh()
 	glEnableVertexAttribArray(2);
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, TexCoords));
 
+	glEnableVertexAttribArray(3);
+	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, Tangents));
+
 	glBindVertexArray(0);
 }
 
-void Mesh::Draw(Shader shader)
+void Mesh::Draw(Shader* shader)
 {
+
+	material->SetupShader(shader);
 	//// Bind appropriate textures
 	//GLuint diffuseNr = 1;
 	//GLuint specularNr = 1;
@@ -371,31 +376,31 @@ void Mesh::Draw(Shader shader)
 	//	stringstream ss;
 	//	string number;
 	//	string name = this->textures[i].type;
-	//	if (name == "texture_diffuse")
+	//	if (name == "diffuse")
 	//		ss << diffuseNr++; // Transfer GLuint to stream
-	//	else if (name == "texture_specular")
+	//	else if (name == "specular")
 	//		ss << specularNr++; // Transfer GLuint to stream
 	//	number = ss.str();
 	//	// Now set the sampler to the correct texture unit
-	//	glUniform1i(glGetUniformLocation(shader.Program, ("material." + name + number).c_str()), i);
+	//	glUniform1i(glGetUniformLocation(shader->Program, ("material." + name).c_str()), i);
 	//	// And finally bind the texture
 	//	glBindTexture(GL_TEXTURE_2D, this->textures[i].id);
 	//}
 
 	//// Also set each mesh's shininess property to a default value (if you want you could extend this to another mesh property and possibly change this value)
-	//glUniform1f(glGetUniformLocation(shader.Program, "material.shininess"), 16.0f);
+	//glUniform1f(glGetUniformLocation(shader->Program, "material.shininess"), 16.0f);
 
-	//// Draw mesh
-	//glBindVertexArray(this->VAO);
-	//glDrawElements(GL_TRIANGLES, this->indices.size(), GL_UNSIGNED_INT, 0);
-	//glBindVertexArray(0);
+	// Draw mesh
+	glBindVertexArray(this->VAO);
+	glDrawElements(GL_TRIANGLES, this->indices.size(), GL_UNSIGNED_INT, 0);
+	glBindVertexArray(0);
 
-	//// Always good practice to set everything back to defaults once configured.
-	//for (GLuint i = 0; i < this->textures.size(); i++)
-	//{
-	//	glActiveTexture(GL_TEXTURE0 + i);
-	//	glBindTexture(GL_TEXTURE_2D, 0);
-	//}
+	// Always good practice to set everything back to defaults once configured.
+	for (GLuint i = 0; i < this->textures.size(); i++)
+	{
+		glActiveTexture(GL_TEXTURE0 + i);
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
 }
 
 void Mesh::DrawPlane(Shader* shader)// , GLuint shadowMap, GLuint skybox, bool reflective)

@@ -89,7 +89,6 @@ private:
 	glm::vec3 scale;
 
 	btTransform bulletTransform;
-	btScalar openGLMat[16];
 };
 
 #endif

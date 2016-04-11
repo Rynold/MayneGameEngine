@@ -16,6 +16,7 @@ using namespace std;
 #include <Importer.hpp>
 #include <scene.h>
 #include <postprocess.h>
+#include "Material.h"
 
 #include "Mesh.h"
 
@@ -32,17 +33,17 @@ public:
 	Model()
 	{
 	}
-	void Draw(Shader shader);
+	void Draw(Shader* shader);
 private:
 	/*  Model Data  */
-	vector<Mesh> meshes;
+	vector<Mesh*> meshes;
 	string directory;
 	vector<Tex> textures_loaded;
 
 	/*  Functions   */
 	void loadModel(string path);
 	void processNode(aiNode* node, const aiScene* scene);
-	Mesh processMesh(aiMesh* mesh, const aiScene* scene);
+	Mesh* processMesh(aiMesh* mesh, const aiScene* scene);
 	vector<Tex> loadMaterialTextures(aiMaterial* mat, aiTextureType type,
 		string typeName);
 

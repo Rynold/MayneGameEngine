@@ -3,6 +3,8 @@
 #include "Scene0.h"
 #include "gtc\type_ptr.hpp"
 #include "MyMotionState.h"
+#include "Uniforms.h"
+#include "Model.h"
 #include <iostream>
 using namespace GAME;
 
@@ -49,6 +51,8 @@ Scene0::Scene0(class Window& windowRef):  Scene(windowRef) {
 		}
 	}
 
+	TextureManager::GetInstance()->LoadTexture("Images/defaultNormal.png", TextureType::NORMAL);
+
 }
 
 Scene0::~Scene0(){ 
@@ -83,6 +87,8 @@ bool Scene0::OnCreate() {
 	brickMat->AttachTexture("Images/RyanBrickTextures/wall_height.png", TextureType::HEIGHT);
 	brickMat->AttachTexture("Images/RyanBrickTextures/wall_Roughness.png", TextureType::SPECULAR);
 
+	
+	
 	
 
 	// Clean up this spahgetti and put it in the RigidBody class
@@ -168,14 +174,23 @@ bool Scene0::OnCreate() {
 	reflectiveBox->AttachShader(reflectiveShader);
 
 	reflectiveBox->_transform->SetPosition(-3, 0.0, 0.0);
-	//GameObjects.push_back(reflectiveBox);
+	GameObjects.push_back(reflectiveBox);
 
 	GameObject* refractionBox = new GameObject();
 	refractionBox->AddComponent(new Mesh(EMeshType::CUBE));
 	refractionBox->_staticMesh->material = brickMat;
 	refractionBox->AttachShader(new Shader("Shaders/refractionShader.vert","Shaders/refractionShader.frag"));
 	refractionBox->_transform->SetPosition(-6, 0.0, 0.0);
-	//GameObjects.push_back(refractionBox);
+	GameObjects.push_back(refractionBox);
+
+
+	GameObject* nanoSuit = new GameObject();
+	nanoSuit->model = new Model("Models/nanosuit.obj");
+	nanoSuit->_transform->SetPosition(0.0, -5.0, -3.0);
+	nanoSuit->_transform->SetRotation(0, 0, 1, 90);
+	nanoSuit->_transform->SetScale(0.3, 0.3, 0.3);
+	nanoSuit->AttachShader(temp);
+	GameObjects.push_back(nanoSuit);
 
 	nM->AttachListener(viewCamera);
 
@@ -272,6 +287,8 @@ void Scene0::Render() const{
 		}
 	}
 	
+
+
 	for each(GameObject* object in GameObjects)
 	{
 		object->Draw(object->GetShader());// , dirLight->depthMap, skybox->texture, object->reflective);
@@ -281,7 +298,6 @@ void Scene0::Render() const{
 		bP->m_dynamicsWorld->debugDrawWorld();
 		((GLDebugDrawer*)bP->m_dynamicsWorld->getDebugDrawer())->DrawWorld(projectionMatrix, modelViewMatrix);
 	}
-
 
 	SDL_GL_SwapWindow(windowPtr->getSDLWindow());
 

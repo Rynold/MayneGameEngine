@@ -29,6 +29,7 @@ enum EMeshType
 	CUBE,
 	SPHERE,
 	PLANE,
+	MESH,
 	CUSTOM
 };
 
@@ -36,6 +37,7 @@ struct Vertex {
 	Vec3 Position;
 	Vec3 Normal;
 	Vec2 TexCoords;
+	Vec3 Tangents;
 };
 
 struct Tex {
@@ -57,7 +59,7 @@ public:
 	Mesh(EMeshType type);
 	Mesh(vector<Vertex> vertices, vector<GLuint> indices, vector<Tex> textures);
 	~Mesh();
-	void Draw(Shader shader);
+	void Draw(Shader* shader);
 	void Draw(Shader* shader, int temp);
 	void DrawPlane(Shader* shader);// , GLuint shadowMap, GLuint skybox, bool reflective);
 	void DrawCube(Shader* shader);// , GLuint shadowMap, GLuint skybox, bool reflective);

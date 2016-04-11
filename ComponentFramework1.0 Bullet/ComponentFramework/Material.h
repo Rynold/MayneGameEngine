@@ -212,7 +212,11 @@ public:
 				glBindTexture(GL_TEXTURE_2D, texMan->Contains(baseTexture)->tex);
 			}
 		}
-
+		else{
+			glUniform1i(glGetUniformLocation(shader->Program, "material.baseTex"), 0);
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D,0);
+		}
 		if (matFlags & specFlag){
 			if (texMan->Contains(specularTexture))
 			{
@@ -230,7 +234,11 @@ public:
 				glBindTexture(GL_TEXTURE_2D, texMan->Contains(normalMap)->tex);
 			}
 		}
-
+		else{
+			glUniform1i(glGetUniformLocation(shader->Program, "material.normalMap"), 2);
+			glActiveTexture(GL_TEXTURE2);
+			glBindTexture(GL_TEXTURE_2D, texMan->Contains("Images/defaultNormal.png")->tex);
+		}
 		if (matFlags & roughFlag){
 			if (texMan->Contains(roughnessMap))
 			{

@@ -127,6 +127,7 @@
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="Uniforms.h" />
     <ClInclude Include="Vector.h" />
     <ClInclude Include="VMAth.h" />
     <ClInclude Include="Window.h" />

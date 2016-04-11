@@ -61,7 +61,9 @@ public:
 	}
 
 private:
-	TextureManager(){}
+	TextureManager(){
+		//this->LoadTexture("Images/defaultNormal.jpg", TextureType::NORMAL);
+	}
 	~TextureManager()
 	{
 		delete manager;

@@ -9,6 +9,7 @@
 #include "RigidBody.h"
 #include "ShaderManager.h"
 #include "glm.hpp"
+#include "Model.h"
 #include "gtc\matrix_transform.inl"
 
 using namespace MATH;
@@ -28,6 +29,7 @@ public:
 
 	Transform* _transform;
 	Mesh* _staticMesh;
+	Model* model;
 	int shaderID;
 
 

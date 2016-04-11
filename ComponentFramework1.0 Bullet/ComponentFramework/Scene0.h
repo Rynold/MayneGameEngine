@@ -2,6 +2,7 @@
 #define Scene0_H
 
 #include "Scene.h"
+#include "Model.h"
 #include "Window.h"
 
 namespace GAME {
@@ -47,8 +48,6 @@ namespace GAME {
 		Shader* reflectiveShader;
 
 		BulletPhysics* bP;
-
-		
 	};
 }
 #endif
