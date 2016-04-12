@@ -38,11 +38,23 @@ public:
 		return position;
 	}
 
-	void SetRotation(float x, float y, float z, float w)
-	{
-		rotation = glm::vec4(x, y, z, w);
+	//void SetRotation(glm::quat quat)
+	//{
+	//	rotation = glm::vec4(quat.x, quat.y, quat.z, quat.w);
 
-		bulletTransform.setRotation(btQuaternion(x, y, z,w));
+	//	bulletTransform.setRotation(btQuaternion(quat.x, quat.y, quat.z, quat.w));
+	//}
+
+	void SetAxisAngleDeg(float x, float y, float z, float angle)
+	{
+		angle *= 3.14 / 180;
+		angle /= 2;
+		float sinV = sin(angle);
+		float cosV = cos(angle);
+
+		rotation = glm::vec4(x * sinV, y * sinV, z * sinV, cosV);
+
+		bulletTransform.setRotation(btQuaternion(rotation.x, rotation.y, rotation.z,rotation.w));
 	}
 
 	glm::vec4 Rotation()

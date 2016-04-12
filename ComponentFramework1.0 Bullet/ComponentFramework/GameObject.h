@@ -67,7 +67,7 @@ public:
 
 	void SetOrientation(float x, float y, float z, float w)
 	{
-		_transform->SetRotation(x, y, z, w);
+		_transform->SetAxisAngleDeg(x, y, z, w);
 	}
 
 	void Draw(Shader* shader);// , GLuint shadowMap, GLuint skybox, bool reflective);

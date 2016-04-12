@@ -122,7 +122,7 @@ bool Scene0::OnCreate() {
 		box->AttachShader(sceneShader);
 
 		box->_transform->SetPosition(0, 0, 0);
-		box->_transform->SetRotation(1,0,1,45);
+		box->_transform->SetAxisAngleDeg(1,0,1,45);
 
 		float mass = 5;
 		btCollisionShape* boxShape = new btBoxShape(btVector3(1,1,1));
@@ -176,7 +176,7 @@ bool Scene0::OnCreate() {
 	reflectiveBox->_transform->SetPosition(-3, 0.0, 0.0);
 	GameObjects.push_back(reflectiveBox);
 
-	GameObject* refractionBox = new GameObject();
+	GameObject* refractionBox = new GameObject;
 	refractionBox->AddComponent(new Mesh(EMeshType::CUBE));
 	refractionBox->_staticMesh->material = brickMat;
 	refractionBox->AttachShader(new Shader("Shaders/refractionShader.vert","Shaders/refractionShader.frag"));
@@ -184,10 +184,10 @@ bool Scene0::OnCreate() {
 	GameObjects.push_back(refractionBox);
 
 
-	GameObject* nanoSuit = new GameObject();
+	GameObject* nanoSuit = new GameObject;
 	nanoSuit->model = new Model("Models/nanosuit.obj");
 	nanoSuit->_transform->SetPosition(0.0, -5.0, -3.0);
-	nanoSuit->_transform->SetRotation(0, 0, 1, 90);
+	nanoSuit->_transform->SetAxisAngleDeg(0,1,0,-90);
 	nanoSuit->_transform->SetScale(0.3, 0.3, 0.3);
 	nanoSuit->AttachShader(temp);
 	GameObjects.push_back(nanoSuit);

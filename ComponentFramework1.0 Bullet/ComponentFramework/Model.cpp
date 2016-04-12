@@ -132,7 +132,7 @@ Mesh* Model::processMesh(aiMesh* mesh, const aiScene* scene)
 		material->GetTexture(aiTextureType_HEIGHT, 0, &str);
 		filename = string(str.C_Str());
 		filename = this->directory + '/' + filename;
-		//mat->AttachTexture(filename.c_str(), TextureType::NORMAL);
+		mat->AttachTexture(filename.c_str(), TextureType::NORMAL);
 
 		thisMesh = new Mesh(vertices, indices, textures);
 		thisMesh->material = mat;
