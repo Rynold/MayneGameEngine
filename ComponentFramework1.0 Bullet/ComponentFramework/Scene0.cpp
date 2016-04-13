@@ -87,10 +87,6 @@ bool Scene0::OnCreate() {
 	brickMat->AttachTexture("Images/RyanBrickTextures/wall_height.png", TextureType::HEIGHT);
 	brickMat->AttachTexture("Images/RyanBrickTextures/wall_Roughness.png", TextureType::SPECULAR);
 
-	
-	
-	
-
 	// Clean up this spahgetti and put it in the RigidBody class
 	{
 		floor_ = new GameObject();
@@ -186,10 +182,10 @@ bool Scene0::OnCreate() {
 
 	GameObject* nanoSuit = new GameObject;
 	nanoSuit->model = new Model("Models/nanosuit.obj");
-	nanoSuit->_transform->SetPosition(0.0, -5.0, -3.0);
-	nanoSuit->_transform->SetAxisAngleDeg(0,1,0,-90);
+	nanoSuit->_transform->SetPosition(0.0, -5.0, -5.0);
+	nanoSuit->_transform->SetAxisAngleDeg(0,1,0,0);
 	nanoSuit->_transform->SetScale(0.3, 0.3, 0.3);
-	nanoSuit->AttachShader(temp);
+	nanoSuit->AttachShader(new Shader("Shaders/modelShader.vert","Shaders/modelShader.frag"));
 	GameObjects.push_back(nanoSuit);
 
 	nM->AttachListener(viewCamera);
