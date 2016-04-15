@@ -181,7 +181,7 @@ bool Scene0::OnCreate() {
 
 
 	GameObject* nanoSuit = new GameObject;
-	nanoSuit->model = new Model("Models/nanosuit.obj");
+	nanoSuit->model = new Model("Models/Nanosuit/nanosuit.obj");
 	nanoSuit->_transform->SetPosition(0.0, -5.0, -5.0);
 	nanoSuit->_transform->SetAxisAngleDeg(0,1,0,0);
 	nanoSuit->_transform->SetScale(0.3, 0.3, 0.3);

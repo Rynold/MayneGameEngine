@@ -20,14 +20,14 @@ private:
 	const char* heightMap;
 	const char* reflectionMap;
 
-	uint32_t baseFlag;// = 0x00000001;
-	uint32_t specFlag;// = 0x00000010;
-	uint32_t normFlag;// = 0x00000100;
-	uint32_t roughFlag;// = 0x00001000;
-	uint32_t heightFlag;// = 0x00010000;
-	uint32_t reflFlag;// = 0x00100000;
+	uint32_t baseFlag;
+	uint32_t specFlag;
+	uint32_t normFlag;
+	uint32_t roughFlag;
+	uint32_t heightFlag;
+	uint32_t reflFlag;
 
-	uint32_t matFlags;// = 0x00000000;
+	uint32_t matFlags;
 	
 
 public:
@@ -55,14 +55,6 @@ public:
 		roughFlag  = 0x00001000;
 		heightFlag = 0x00010000;
 		reflFlag   = 0x00100000;
-
-		/*std::cout << baseFlag << std::endl;
-		std::cout << specFlag << std::endl;
-		std::cout << normFlag << std::endl;
-		std::cout << roughFlag << std::endl;
-		std::cout << heightFlag << std::endl;
-		std::cout << reflFlag << std::endl;*/
-		//PrintMatFlags();
 	}
 
 	void PrintMatFlags()
@@ -195,7 +187,7 @@ public:
 			break;
 		}
 
-		PrintMatFlags();
+		//PrintMatFlags();
 
 		TextureManager::GetInstance()->LoadTexture(path, type);
 	}

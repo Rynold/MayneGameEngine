@@ -53,7 +53,7 @@ void GameObject::Update(float deltaTime)
 	_transform->rotationHK = rigidBody->getRotation();*/
 }
 
-void GameObject::Draw(Shader* shader)// , GLuint shadowMap, GLuint skybox, bool reflective)
+void GameObject::Draw(Shader* shader)
 {
 	///If there isn't anything to draw then just get out of this.
 	if (_staticMesh == nullptr && model == nullptr)

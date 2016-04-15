@@ -27,6 +27,7 @@ public:
 
 	virtual void Update(float deltaTime);
 
+	std::vector<Mesh*> meshs;
 	Transform* _transform;
 	Mesh* _staticMesh;
 	Model* model;

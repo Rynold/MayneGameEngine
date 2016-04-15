@@ -14,13 +14,15 @@ class Shader
 public:
 	// The program ID
 	GLuint Program;
-	// Constructor reads and builds the shader
+	
 	Shader(const GLchar* vertexPath, const GLchar* fragmentPath);
 
 	Shader(){}
 	~Shader();
 	// Use the program
 	void Use();
+
+	//float Noise(glm::vec3 x);
 
 	int id;
 };

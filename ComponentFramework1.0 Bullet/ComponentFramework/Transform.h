@@ -6,6 +6,8 @@
 #include "Vector.h"
 #include "btBulletDynamicsCommon.h"
 #include "glm.hpp"
+#include "VMAth.h"
+
 
 using namespace MATH;
 
@@ -93,7 +95,34 @@ public:
 	float pitch;
 	float roll;
 
-	//GLfloat temp[16];
+	//void SetYawPitchRoll(float y, float p, float r, bool constrainPitch = true)
+	//{
+	//	yaw = y;
+	//	pitch = p;
+	//	roll = r;
+
+	//	if (constrainPitch)
+	//	{
+	//		if (pitch > 89.0f)
+	//			pitch = 89.0f;
+	//		if (pitch < -89.0f)
+	//			pitch = -89.0f;
+	//	}
+
+	//	UpdateVectors();
+	//}
+
+	//void UpdateVectors()
+	//{
+	//	glm::vec3 frontT;
+	//	frontT.x = cos(MathUtil::DegToRads(yaw)) * cos(MathUtil::DegToRads(pitch));
+	//	frontT.y = sin(MathUtil::DegToRads(pitch));
+	//	frontT.z = sin(MathUtil::DegToRads(yaw)) * cos(MathUtil::DegToRads(pitch));
+	//	front = glm::normalize(frontT);
+	//	// Also re-calculate the Right and Up vector
+	//	right = glm::normalize(glm::cross(front, worldUp));  // Normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
+	//	up = glm::normalize(glm::cross(right, front));
+	//}
 
 private:
 	glm::vec3 position;
