@@ -90,7 +90,7 @@ Shader* GameObject::GetShader()
 	return ShaderManager::GetInstance()->Contains(shaderID);
 }
 
-void GameObject::AttachShader(Shader* shader)
+void GameObject::AttachShader(Shader* shader, const char* name)
 {
-	shaderID = ShaderManager::GetInstance()->Insert(-1, shader);
+	shaderID = ShaderManager::GetInstance()->Insert(name, shader);
 }

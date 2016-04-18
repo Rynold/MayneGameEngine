@@ -36,7 +36,7 @@ public:
 	MColor diffuse;
 	MColor specular;
 	float roughness;
-	int shaderID;
+	const char* shaderID;
 	
 
 	Material()
@@ -152,9 +152,9 @@ public:
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
 	}*/
 
-	void AttachShader(Shader* shader)
+	void AttachShader(Shader* shader, const char* name)
 	{
-		shaderID = ShaderManager::GetInstance()->Insert(-1, shader);
+		shaderID = ShaderManager::GetInstance()->Insert(name, shader);
 	}
 
 	void AttachTexture(const char* path, TextureType type)

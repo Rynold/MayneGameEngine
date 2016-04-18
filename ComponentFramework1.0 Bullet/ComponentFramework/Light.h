@@ -25,7 +25,7 @@ public:
 	GLuint SHADOW_WIDTH;
 	GLuint SHADOW_HEIGHT;
 
-	int shaderID;
+	const char* shaderID;
 
 	virtual void GenerateDepthMapFBO(){};
 	virtual void CreateDepthMap(vector<GameObject*> GameObjects, glm::mat4 lightSpaceMatrix){};
@@ -41,7 +41,7 @@ public:
 		SHADOW_HEIGHT = 1024;
 		SHADOW_WIDTH = 1024;
 
-		shaderID = ShaderManager::GetInstance()->Insert(-1, new Shader("triangles.vert", "triangles.frag"));
+		shaderID = ShaderManager::GetInstance()->Insert("Triangles", new Shader("triangles.vert", "triangles.frag"));
 	}
 	~DirectionalLight()
 	{

@@ -17,7 +17,7 @@ public:
 		return instance;
 	}
 
-	Shader* Contains(int id)
+	Shader* Contains(const char* id)
 	{
 		if (shaders.find(id) != shaders.end())
 			return shaders.find(id)->second;
@@ -25,24 +25,14 @@ public:
 			return nullptr;
 	}
 
-	int Insert(int id, Shader* shader)
+	const char* Insert(const char* id, Shader* shader)
 	{
-		if (id == -1)
-		{
-			/*if (Contains(shader->id))
-				return id;*/
-
+		if (!Contains(shader->id)){
 			count++;
-			shaders.insert(std::pair<int, Shader*>(count, shader));
-			shader->id = count;
+			shaders.insert(std::pair<const char*, Shader*>(id, shader));
 		}
-		else
-		{
-			if (Contains(id))
-				std::cout << "*** WARNING *** :: Shader Manager already contains a shadder with that Id. This shadder will not be added to the map." << std::endl;
-			shaders.insert(std::pair<int, Shader*>(count, shader));
-		}
-		return shader->id;
+		
+		return id;
 	}
 
 	void SendLightingDataToShaders()
@@ -64,6 +54,19 @@ public:
 		return shaders.size();
 	}
 
+	Shader* GetShader(int i)
+	{
+		count = 0;
+		for (auto it = shaders.begin(); it != shaders.end(); ++it)
+		{
+			if (count == i)
+				return it->second;
+			else
+				count++;
+		}
+		std::cerr << "Error:: GetShader() does not contain a shaders for position: " << i << std::endl << "NumShaders: " << GetNumShaders() << std::endl;
+	}
+
 	/*void SendUniformsToShader(glm::mat4& proj, glm::mat4& mod, glm::mat4& light, glm::vec3& viewPos)
 	{
 		glUniformMatrix4fv(glGetUniformLocation(sceneShader->Program, "lightSpaceMatrix"), 1, GL_FALSE, light[0][0]);
@@ -81,9 +84,10 @@ private:
 	{
 		delete instance;
 		instance = nullptr;
+		shaders.clear();
 	}
 
-	std::map<int,Shader*> shaders;
+	std::map<const char*,Shader*> shaders;
 
 	static ShaderManager* instance;
 

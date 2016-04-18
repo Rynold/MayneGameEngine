@@ -2,15 +2,15 @@
 #include <GL\glew.h>
 
 
-class Uniforms{
-	glm::mat4* projectionMatrix;
-	glm::mat4* cameraViewMatrix;
+static class Uniforms{
+	static glm::mat4 projectionMatrix;
+	static glm::mat4 cameraViewMatrix;
 
-	glm::mat4* lightSpaceMatrix;
-	glm::vec3* viewPos;
+	static glm::mat4 lightSpaceMatrix;
+	static glm::vec3 viewPos;
 
-	GLuint* skybox;
-	GLuint* shadowMap;
+	static GLuint skybox;
+	static GLuint shadowMap;
 
 public:
 
@@ -19,7 +19,7 @@ public:
 
 	~Uniforms()
 	{
-		delete projectionMatrix;
+		/*delete projectionMatrix;
 		projectionMatrix = nullptr;
 
 		delete cameraViewMatrix;
@@ -35,35 +35,61 @@ public:
 		skybox = nullptr;
 
 		delete shadowMap;
-		shadowMap = nullptr;
+		shadowMap = nullptr;*/
 	}
 
-	glm::mat4* GetProjectionMatrix()
+	static inline void SetProjectionMatrix(glm::mat4 m){
+		projectionMatrix = m;
+	}
+
+	static inline glm::mat4 GetProjectionMatrix()
 	{
 		return projectionMatrix;
 	}
 
-	glm::mat4* GetCameraViewMatrix()
+	static inline void SetCameraViewMatrix(glm::mat4 m){
+		cameraViewMatrix = m;
+	}
+
+	static inline glm::mat4 GetCameraViewMatrix()
 	{
 		return cameraViewMatrix;
 	}
 
-	glm::mat4* GetLightSpaceMatrix()
+	static inline void SetLightSpaceMatrix(glm::mat4 m){
+		lightSpaceMatrix = m;
+	}
+
+	static inline glm::mat4 GetLightSpaceMatrix()
 	{
 		return lightSpaceMatrix;
 	}
 
-	glm::vec3* GetViewPos()
+	static inline void SetViewPos(glm::vec3 v){
+		viewPos = v;
+	}
+
+	static inline glm::vec3 GetViewPos()
 	{
 		return viewPos;
 	}
 
-	GLuint* GetSkybox()
+	static inline void SetSkyBox(GLuint i)
+	{
+		skybox = i;
+	}
+
+	static 	inline GLuint GetSkybox()
 	{
 		return skybox;
 	}
 
-	GLuint* GetShadowMap()
+	static 	inline void SetShadowMap(GLuint i)
+	{
+		shadowMap = i;
+	}
+
+	static 	inline GLuint GetShadowMap()
 	{
 		return shadowMap;
 	}

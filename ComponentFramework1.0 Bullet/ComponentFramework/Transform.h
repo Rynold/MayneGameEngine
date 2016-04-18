@@ -7,6 +7,7 @@
 #include "btBulletDynamicsCommon.h"
 #include "glm.hpp"
 #include "VMAth.h"
+#include "MathUtil.h"
 
 
 using namespace MATH;
@@ -39,13 +40,6 @@ public:
 	{
 		return position;
 	}
-
-	//void SetRotation(glm::quat quat)
-	//{
-	//	rotation = glm::vec4(quat.x, quat.y, quat.z, quat.w);
-
-	//	bulletTransform.setRotation(btQuaternion(quat.x, quat.y, quat.z, quat.w));
-	//}
 
 	void SetAxisAngleDeg(float x, float y, float z, float angle)
 	{
@@ -95,34 +89,34 @@ public:
 	float pitch;
 	float roll;
 
-	//void SetYawPitchRoll(float y, float p, float r, bool constrainPitch = true)
-	//{
-	//	yaw = y;
-	//	pitch = p;
-	//	roll = r;
+	void SetYawPitchRoll(float y, float p, float r, bool constrainPitch = true)
+	{
+		yaw = y;
+		pitch = p;
+		roll = r;
 
-	//	if (constrainPitch)
-	//	{
-	//		if (pitch > 89.0f)
-	//			pitch = 89.0f;
-	//		if (pitch < -89.0f)
-	//			pitch = -89.0f;
-	//	}
+		if (constrainPitch)
+		{
+			if (pitch > 89.0f)
+				pitch = 89.0f;
+			if (pitch < -89.0f)
+				pitch = -89.0f;
+		}
 
-	//	UpdateVectors();
-	//}
+		UpdateVectors();
+	}
 
-	//void UpdateVectors()
-	//{
-	//	glm::vec3 frontT;
-	//	frontT.x = cos(MathUtil::DegToRads(yaw)) * cos(MathUtil::DegToRads(pitch));
-	//	frontT.y = sin(MathUtil::DegToRads(pitch));
-	//	frontT.z = sin(MathUtil::DegToRads(yaw)) * cos(MathUtil::DegToRads(pitch));
-	//	front = glm::normalize(frontT);
-	//	// Also re-calculate the Right and Up vector
-	//	right = glm::normalize(glm::cross(front, worldUp));  // Normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
-	//	up = glm::normalize(glm::cross(right, front));
-	//}
+	void UpdateVectors()
+	{
+		glm::vec3 frontT;
+		frontT.x = cos(MathUtil::DegToRads(yaw)) * cos(MathUtil::DegToRads(pitch));
+		frontT.y = sin(MathUtil::DegToRads(pitch));
+		frontT.z = sin(MathUtil::DegToRads(yaw)) * cos(MathUtil::DegToRads(pitch));
+		front = glm::normalize(frontT);
+		// Also re-calculate the Right and Up vector
+		right = glm::normalize(glm::cross(front, worldUp));  // Normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
+		up = glm::normalize(glm::cross(right, front));
+	}
 
 private:
 	glm::vec3 position;

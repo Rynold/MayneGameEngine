@@ -36,6 +36,8 @@ void ModelLoader::processNode(aiNode* node, const aiScene* scene, GameObject* ob
 		// The node object only contains indices to index the actual objects in the scene. 
 		// The scene contains all the data, node is just to keep stuff organized (like relations between nodes).
 		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
+
+		object->meshs.reserve(node->mNumMeshes);
 		object->AttachMesh(processMesh(mesh, scene));
 	}
 	// After we've processed all of the meshes (if any) we then recursively process each of the children nodes

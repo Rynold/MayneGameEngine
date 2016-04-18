@@ -32,7 +32,7 @@ public:
 	Transform* _transform;
 	Mesh* _staticMesh;
 	//Model* model;
-	int shaderID;
+	const char* shaderID;
 
 
 	void AddRigidBody(RigidBody* body);
@@ -78,7 +78,7 @@ public:
 
 	virtual Shader* GetShader();
 
-	void AttachShader(Shader* shader);
+	void AttachShader(Shader* shader, const char* name);
 
 	btRigidBody* body;
 

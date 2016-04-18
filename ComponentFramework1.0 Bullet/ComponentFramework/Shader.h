@@ -24,7 +24,7 @@ public:
 
 	//float Noise(glm::vec3 x);
 
-	int id;
+	const char* id;
 };
 
 #endif

@@ -63,7 +63,8 @@ public:
 		moveUp = false;
 		moveDown = false;
 
-		this->updateCameraVectors();
+		_transform->UpdateVectors();
+		//this->updateCameraVectors();
 	}
 	// Constructor with scalar values
 	Camera(GLfloat posX, GLfloat posY, GLfloat posZ, GLfloat upX, GLfloat upY, GLfloat upZ, GLfloat yaw, GLfloat pitch) : MovementSpeed(SPEED), MouseSensitivity(SENSITIVTY), Zoom(ZOOM)
@@ -81,7 +82,8 @@ public:
 		moveUp = false;
 		moveDown = false;
 
-		this->updateCameraVectors();
+		_transform->UpdateVectors();
+		//this->updateCameraVectors();
 	}
 
 	// Returns the view matrix calculated using Eular Angles and the LookAt Matrix
@@ -121,17 +123,19 @@ public:
 		_transform->yaw += xoffset;
 		_transform->pitch += yoffset;
 
-		// Make sure that when pitch is out of bounds, screen doesn't get flipped
-		if (constrainPitch)
-		{
-			if (_transform->pitch > 89.0f)
-				_transform->pitch = 89.0f;
-			if (_transform->pitch < -89.0f)
-				_transform->pitch = -89.0f;
-		}
+		_transform->SetYawPitchRoll(_transform->yaw + xoffset, _transform->pitch + yoffset, _transform->roll);
 
-		// Update Front, Right and Up Vectors using the updated Eular angles
-		this->updateCameraVectors();
+		//// Make sure that when pitch is out of bounds, screen doesn't get flipped
+		//if (constrainPitch)
+		//{
+		//	if (_transform->pitch > 89.0f)
+		//		_transform->pitch = 89.0f;
+		//	if (_transform->pitch < -89.0f)
+		//		_transform->pitch = -89.0f;
+		//}
+
+		//// Update Front, Right and Up Vectors using the updated Eular angles
+		//this->updateCameraVectors();
 	}
 
 	// Processes input received from a mouse scroll-wheel event. Only requires input on the vertical wheel-axis
@@ -146,18 +150,18 @@ public:
 	}
 
 	// Calculates the front vector from the Camera's (updated) Eular Angles
-	void updateCameraVectors()
-	{
-		// Calculate the new Front vector
-		glm::vec3 front;
-		front.x = cos(MathUtil::DegToRads(_transform->yaw)) * cos(MathUtil::DegToRads(_transform->pitch));
-		front.y = sin(MathUtil::DegToRads(_transform->pitch));
-		front.z = sin(MathUtil::DegToRads(_transform->yaw)) * cos(MathUtil::DegToRads(_transform->pitch));
-		_transform->front = glm::normalize(front); //glm::normalize(front);
-		// Also re-calculate the Right and Up vector
-		_transform->right = glm::normalize(glm::cross(_transform->front, _transform->worldUp));  // Normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
-		_transform->up = glm::normalize(glm::cross(_transform->right, _transform->front));
-	}
+	//void updateCameraVectors()
+	//{
+	//	// Calculate the new Front vector
+	//	glm::vec3 front;
+	//	front.x = cos(MathUtil::DegToRads(_transform->yaw)) * cos(MathUtil::DegToRads(_transform->pitch));
+	//	front.y = sin(MathUtil::DegToRads(_transform->pitch));
+	//	front.z = sin(MathUtil::DegToRads(_transform->yaw)) * cos(MathUtil::DegToRads(_transform->pitch));
+	//	_transform->front = glm::normalize(front); //glm::normalize(front);
+	//	// Also re-calculate the Right and Up vector
+	//	_transform->right = glm::normalize(glm::cross(_transform->front, _transform->worldUp));  // Normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
+	//	_transform->up = glm::normalize(glm::cross(_transform->right, _transform->front));
+	//}
 	
 	virtual void Update(float deltaTime) override
 	{

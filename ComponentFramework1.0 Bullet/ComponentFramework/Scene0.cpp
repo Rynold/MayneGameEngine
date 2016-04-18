@@ -93,7 +93,7 @@ bool Scene0::OnCreate() {
 		floor_->_transform->SetPosition(0.0, -5.0, 0.0);
 		//floor_->_transform->SetRotation(0, 0, 1, 0);
 		floor_->AttachMesh(new Mesh(EMeshType::PLANE));
-		floor_->AttachShader(temp);
+		floor_->AttachShader(temp, "temp");
 		floor_->GetMesh()->material = floorMat;
 
 		float mass = 0;
@@ -115,7 +115,7 @@ bool Scene0::OnCreate() {
 		box = new GameObject();
 		box->AttachMesh(new Mesh(EMeshType::CUBE));
 		box->GetMesh()->material = boxMat;
-		box->AttachShader(sceneShader);
+		box->AttachShader(sceneShader, "sceneShader");
 
 		box->_transform->SetPosition(0, 0, 0);
 		box->_transform->SetAxisAngleDeg(1,0,1,45);
@@ -142,7 +142,7 @@ bool Scene0::OnCreate() {
 		GameObject* cube = new GameObject();
 		cube->AttachMesh(new Mesh(EMeshType::CUBE));
 		cube->GetMesh()->material = boxMat;
-		cube->AttachShader(sceneShader);
+		cube->AttachShader(sceneShader, "sceneShader");
 
 		cube->_transform->SetPosition(0, 2.5 * i, 0);
 		//cube->_transform->SetRotation(1, 0, 1, 45);
@@ -167,7 +167,7 @@ bool Scene0::OnCreate() {
 	reflectiveBox = new GameObject();
 	reflectiveBox->AttachMesh(new Mesh(EMeshType::CUBE));
 	reflectiveBox->GetMesh()->material = brickMat;
-	reflectiveBox->AttachShader(reflectiveShader);
+	reflectiveBox->AttachShader(reflectiveShader, "reflectiveShader");
 
 	reflectiveBox->_transform->SetPosition(-3, 0.0, 0.0);
 	GameObjects.push_back(reflectiveBox);
@@ -175,7 +175,7 @@ bool Scene0::OnCreate() {
 	GameObject* refractionBox = new GameObject;
 	refractionBox->AttachMesh(new Mesh(EMeshType::CUBE));
 	refractionBox->GetMesh()->material = brickMat;
-	refractionBox->AttachShader(new Shader("Shaders/refractionShader.vert","Shaders/refractionShader.frag"));
+	refractionBox->AttachShader(new Shader("Shaders/refractionShader.vert","Shaders/refractionShader.frag"), "refractionShader");
 	refractionBox->_transform->SetPosition(-6, 0.0, 0.0);
 	GameObjects.push_back(refractionBox);
 
@@ -184,7 +184,7 @@ bool Scene0::OnCreate() {
 	nanoSuit->_transform->SetPosition(0.0, -5.0, -5.0);
 	nanoSuit->_transform->SetAxisAngleDeg(0,1,0,0);
 	nanoSuit->_transform->SetScale(0.3, 0.3, 0.3);
-	nanoSuit->AttachShader(new Shader("Shaders/modelShader.vert","Shaders/modelShader.frag"));
+	nanoSuit->AttachShader(new Shader("Shaders/modelShader.vert","Shaders/modelShader.frag"), "modelShader");
 	GameObjects.push_back(nanoSuit);
 
 	nM->AttachListener(viewCamera);
@@ -242,8 +242,10 @@ void Scene0::Render() const{
 
 	lightSpaceMatrix = lightProjection * lightView;
 
+
 	dirLight->CreateDepthMap(GameObjects, lightSpaceMatrix);
 
+	//Uniforms::SetLightSpaceMatrix(lightSpaceMatrix);
 	//Bind the original frame buffer again
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
@@ -262,9 +264,9 @@ void Scene0::Render() const{
 
 	modelViewMatrix = viewCamera->GetViewMatrix();
 
-	for (int i = 0; i <= ShaderManager::GetInstance()->GetNumShaders(); i++)
+	for (int i = 0; i <= ShaderManager::GetInstance()->GetNumShaders() - 1; i++)
 	{
-		Shader* shader = ShaderManager::GetInstance()->Contains(i);
+		Shader* shader = ShaderManager::GetInstance()->GetShader(i);
 		if (shader){
 			shader->Use();
 			glUniformMatrix4fv(glGetUniformLocation(shader->Program, "lightSpaceMatrix"), 1, GL_FALSE, &lightSpaceMatrix[0][0]);
@@ -415,10 +417,4 @@ void Scene0::OnResize(int w_, int h_)
 {
 	windowPtr->SetWindowSize(w_, h_);
 	glViewport(0, 0, windowPtr->GetWidth(), windowPtr->GetHeight());
-	/*glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glOrtho(0.0, 10.0, 0.0, 10.0, -1.0, 1.0);
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();*/
-	//glTranslatef(5.0, 5.0, 0.0);
 }
