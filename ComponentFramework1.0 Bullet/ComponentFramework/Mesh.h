@@ -46,7 +46,7 @@ struct Tex {
 	aiString path;
 };
 
-class Mesh : public Component {
+class Mesh {
 public:
 	/*  Mesh Data  */
 	vector<Vertex> vertices;

@@ -9,10 +9,11 @@
 #include "RigidBody.h"
 #include "ShaderManager.h"
 #include "glm.hpp"
-#include "Model.h"
 #include "gtc\matrix_transform.inl"
 
 using namespace MATH;
+
+class ModelLoader;
 
 class GameObject
 {
@@ -30,7 +31,7 @@ public:
 	std::vector<Mesh*> meshs;
 	Transform* _transform;
 	Mesh* _staticMesh;
-	Model* model;
+	//Model* model;
 	int shaderID;
 
 
@@ -83,9 +84,23 @@ public:
 
 	void DrawDebug(btDynamicsWorld* world);
 
+	void LoadModel(std::string path);
+
+	void AttachMesh(Mesh* mesh)
+	{
+		meshs.push_back(mesh);
+	}
+
+	Mesh* GetMesh(int index = 0)
+	{
+		return meshs[index];
+	}
+
 private:
 
 	std::vector<Component*> components;
+
+	ModelLoader* loader;
 
 	//Scene* scene;
 };

@@ -92,9 +92,9 @@ bool Scene0::OnCreate() {
 		floor_ = new GameObject();
 		floor_->_transform->SetPosition(0.0, -5.0, 0.0);
 		//floor_->_transform->SetRotation(0, 0, 1, 0);
-		floor_->AddComponent(new Mesh(EMeshType::PLANE));
+		floor_->AttachMesh(new Mesh(EMeshType::PLANE));
 		floor_->AttachShader(temp);
-		floor_->_staticMesh->material = floorMat;
+		floor_->GetMesh()->material = floorMat;
 
 		float mass = 0;
 		btCollisionShape* floorShape = new btStaticPlaneShape(btVector3(0,1,0), -0.5);
@@ -113,8 +113,8 @@ bool Scene0::OnCreate() {
 
 	{
 		box = new GameObject();
-		box->AddComponent(new Mesh(EMeshType::CUBE));
-		box->_staticMesh->material = boxMat;
+		box->AttachMesh(new Mesh(EMeshType::CUBE));
+		box->GetMesh()->material = boxMat;
 		box->AttachShader(sceneShader);
 
 		box->_transform->SetPosition(0, 0, 0);
@@ -140,8 +140,8 @@ bool Scene0::OnCreate() {
 	for (int i = 0; i < 5; i++)
 	{
 		GameObject* cube = new GameObject();
-		cube->AddComponent(new Mesh(EMeshType::CUBE));
-		cube->_staticMesh->material = boxMat;
+		cube->AttachMesh(new Mesh(EMeshType::CUBE));
+		cube->GetMesh()->material = boxMat;
 		cube->AttachShader(sceneShader);
 
 		cube->_transform->SetPosition(0, 2.5 * i, 0);
@@ -165,23 +165,22 @@ bool Scene0::OnCreate() {
 	}
 
 	reflectiveBox = new GameObject();
-	reflectiveBox->AddComponent(new Mesh(EMeshType::CUBE));
-	reflectiveBox->_staticMesh->material = brickMat;
+	reflectiveBox->AttachMesh(new Mesh(EMeshType::CUBE));
+	reflectiveBox->GetMesh()->material = brickMat;
 	reflectiveBox->AttachShader(reflectiveShader);
 
 	reflectiveBox->_transform->SetPosition(-3, 0.0, 0.0);
 	GameObjects.push_back(reflectiveBox);
 
 	GameObject* refractionBox = new GameObject;
-	refractionBox->AddComponent(new Mesh(EMeshType::CUBE));
-	refractionBox->_staticMesh->material = brickMat;
+	refractionBox->AttachMesh(new Mesh(EMeshType::CUBE));
+	refractionBox->GetMesh()->material = brickMat;
 	refractionBox->AttachShader(new Shader("Shaders/refractionShader.vert","Shaders/refractionShader.frag"));
 	refractionBox->_transform->SetPosition(-6, 0.0, 0.0);
 	GameObjects.push_back(refractionBox);
 
-
 	GameObject* nanoSuit = new GameObject;
-	nanoSuit->model = new Model("Models/Nanosuit/nanosuit.obj");
+	nanoSuit->LoadModel("Models/Nanosuit/nanosuit.obj");
 	nanoSuit->_transform->SetPosition(0.0, -5.0, -5.0);
 	nanoSuit->_transform->SetAxisAngleDeg(0,1,0,0);
 	nanoSuit->_transform->SetScale(0.3, 0.3, 0.3);

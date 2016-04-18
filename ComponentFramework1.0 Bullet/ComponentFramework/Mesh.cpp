@@ -4,18 +4,17 @@
 
 Mesh::Mesh(EMeshType type)
 {
+	this->type = type;
 	switch (type)
 	{
 	case EMeshType::CUBE:
 	{
 		initLightCube();
-		this->type = type;
 	}
 	break;
 	case EMeshType::PLANE:
 	{
 		initPlane();
-		this->type = type;
 	}
 	break;
 	};
@@ -323,6 +322,7 @@ Mesh::Mesh(vector<Vertex> vertices, vector<GLuint> indices, vector<Tex> textures
 
 	material = new Material();
 
+	type = CUSTOM;
 	// Now that we have all the required data, set the vertex buffers and its attribute pointers.
 	this->setupMesh();
 }
@@ -364,31 +364,7 @@ void Mesh::setupMesh()
 
 void Mesh::Draw(Shader* shader)
 {
-
 	material->SetupShader(shader);
-	//// Bind appropriate textures
-	//GLuint diffuseNr = 1;
-	//GLuint specularNr = 1;
-	//for (GLuint i = 0; i < this->textures.size(); i++)
-	//{
-	//	glActiveTexture(GL_TEXTURE0 + i); // Active proper texture unit before binding
-	//	// Retrieve texture number (the N in diffuse_textureN)
-	//	stringstream ss;
-	//	string number;
-	//	string name = this->textures[i].type;
-	//	if (name == "diffuse")
-	//		ss << diffuseNr++; // Transfer GLuint to stream
-	//	else if (name == "specular")
-	//		ss << specularNr++; // Transfer GLuint to stream
-	//	number = ss.str();
-	//	// Now set the sampler to the correct texture unit
-	//	glUniform1i(glGetUniformLocation(shader->Program, ("material." + name).c_str()), i);
-	//	// And finally bind the texture
-	//	glBindTexture(GL_TEXTURE_2D, this->textures[i].id);
-	//}
-
-	//// Also set each mesh's shininess property to a default value (if you want you could extend this to another mesh property and possibly change this value)
-	//glUniform1f(glGetUniformLocation(shader->Program, "material.shininess"), 16.0f);
 
 	// Draw mesh
 	glBindVertexArray(this->VAO);
@@ -417,7 +393,9 @@ void Mesh::DrawMesh(Shader* shader)//, GLuint shadowMap, GLuint skybox, bool ref
 	if (type == CUBE)
 		DrawCube(shader);// , shadowMap, skybox, reflective);
 	else if (type == PLANE)
-		DrawPlane(shader);// , shadowMap, skybox, reflective);
+		DrawPlane(shader);
+	else if (type == CUSTOM)
+		Draw(shader);
 }
 
 void Mesh::DrawCube(Shader* shader)//, GLuint shadowMap, GLuint skybox, bool reflective)

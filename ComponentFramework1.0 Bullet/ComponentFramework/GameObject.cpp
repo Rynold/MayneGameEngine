@@ -1,12 +1,14 @@
 #include "GameObject.h"
 #include "GLDebugDrawer.h"
 #include "Scene0.h"
+#include "ModelLoader.h"
 
 GameObject::GameObject()
 {
 	_transform = new Transform();
 	reflective = false;
-	//_staticMesh = new Mesh(EMeshType::CUBE);*/
+
+	loader = new ModelLoader();
 	//scene = scene_;
 }
 
@@ -46,20 +48,19 @@ void GameObject::AddComponent(Component* comp)
 
 void GameObject::Update(float deltaTime)
 {
-	/*_transform->position.x = rigidBody->getTransform().getTranslation().getComponent<0>();
-	_transform->position.y = rigidBody->getTransform().getTranslation().getComponent<1>();
-	_transform->position.z = rigidBody->getTransform().getTranslation().getComponent<2>();
+}
 
-	_transform->rotationHK = rigidBody->getRotation();*/
+void GameObject::LoadModel(std::string path)
+{
+	loader->LoadModel(path, this);
 }
 
 void GameObject::Draw(Shader* shader)
 {
 	///If there isn't anything to draw then just get out of this.
-	if (_staticMesh == nullptr && model == nullptr)
+	if (meshs.size() <= 0)
 		return;
 	else{
-
 		shader->Use();
 
 
@@ -70,13 +71,12 @@ void GameObject::Draw(Shader* shader)
 		GLfloat mat[16];
 		_transform->GetBulletTransform().getOpenGLMatrix(&mat[0]);
 		glUniformMatrix4fv(glGetUniformLocation(shader->Program, "RotationMatrix"), 1, GL_FALSE, &mat[0]);
+
+
+		for (int i = 0; i < meshs.size(); ++i){
+			meshs[i]->DrawMesh(shader);
+		}
 	}
-
-	if (_staticMesh != nullptr)
-		_staticMesh->DrawMesh(shader);
-
-	if (model != nullptr)
-		model->Draw(shader);
 }
 
 void GameObject::DrawDebug(btDynamicsWorld* world)
