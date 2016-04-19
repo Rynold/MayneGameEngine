@@ -9,12 +9,12 @@ class RigidBody: public Component
 {
 public:
 	// The Default constructic will create a static cube.
-	RigidBody(){
-		shape = new btBoxShape(btVector3(1,1,1));
+	RigidBody(BulletPhysics* bP, btCollisionShape* shape, float m){
+		this->shape = shape;
 
 
 		btVector3 localInertia(0.0, 0.0, 0.0);
-		btScalar mass(0.5);
+		btScalar mass(m);
 		shape->calculateLocalInertia(mass, localInertia);
 
 	}

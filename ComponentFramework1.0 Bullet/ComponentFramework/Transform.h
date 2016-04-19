@@ -8,6 +8,7 @@
 #include "glm.hpp"
 #include "VMAth.h"
 #include "MathUtil.h"
+#include "Component.h"
 
 
 using namespace MATH;

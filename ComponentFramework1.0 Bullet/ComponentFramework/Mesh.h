@@ -61,9 +61,9 @@ public:
 	~Mesh();
 	void Draw(Shader* shader);
 	void Draw(Shader* shader, int temp);
-	void DrawPlane(Shader* shader);// , GLuint shadowMap, GLuint skybox, bool reflective);
-	void DrawCube(Shader* shader);// , GLuint shadowMap, GLuint skybox, bool reflective);
-	void DrawMesh(Shader* shader);// , GLuint shadowMap, GLuint skybox, bool reflective);
+	void DrawPlane(Shader* shader);
+	void DrawCube(Shader* shader);
+	void DrawMesh(Shader* shader);
 
 	EMeshType type;
 

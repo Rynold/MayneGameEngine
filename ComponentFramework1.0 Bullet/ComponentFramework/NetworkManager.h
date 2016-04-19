@@ -135,56 +135,18 @@ class NetworkManager
 {
 public:
 
-	NetworkManager(bool isServer_)
-	{
-		isServer = isServer_;
-
-		if (isServer)
-			server = new Server();
-		else
-			client = new Client();
-
-	}
-	~NetworkManager()
-	{
-		delete server;
-		server = nullptr;
-
-		delete client;
-		client = nullptr;
-	}
+	NetworkManager(bool isServer_);
+	~NetworkManager();
 
 	bool isServer;
 	Server* server;
 	Client* client;
 
-	bool AttachListener(NetworkListener* listener)
-	{
-		bool success = false;
-		if (isServer)
-		{
-			server->AddListener(listener);
-			success = true;
-		}
-		return success;
-	}
+	bool AttachListener(NetworkListener* listener);
 
-	bool SendEvent(const SDL_Event& sdlEvent)
-	{
-		bool success = false;
-		if (!isServer)
-			client->SendEvent(sdlEvent);
+	bool SendEvent(const SDL_Event& sdlEvent);
 
-		return success;
-	}
-
-	void Update()
-	{
-		if (isServer)
-			server->Update();
-		else
-			client->Update();
-	}
+	void Update();
 
 };
 

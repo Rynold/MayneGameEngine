@@ -30,7 +30,6 @@ public:
 
 	std::vector<Mesh*> meshs;
 	Transform* _transform;
-	Mesh* _staticMesh;
 	//Model* model;
 	const char* shaderID;
 
@@ -72,9 +71,7 @@ public:
 		_transform->SetAxisAngleDeg(x, y, z, w);
 	}
 
-	void Draw(Shader* shader);// , GLuint shadowMap, GLuint skybox, bool reflective);
-
-	bool reflective;
+	void Draw(Shader* shader);
 
 	virtual Shader* GetShader();
 

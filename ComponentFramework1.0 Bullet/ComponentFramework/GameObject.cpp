@@ -6,7 +6,6 @@
 GameObject::GameObject()
 {
 	_transform = new Transform();
-	reflective = false;
 
 	loader = new ModelLoader();
 	//scene = scene_;
@@ -16,9 +15,6 @@ GameObject::~GameObject()
 {
 	_transform = nullptr;
 	delete _transform;
-
-	_staticMesh = nullptr;
-	delete _staticMesh;
 
 	//Cleans up the components vector
 	for (std::vector<Component*>::iterator it = components.begin(); it != components.end(); ++it)
@@ -31,19 +27,11 @@ GameObject::~GameObject()
 
 void GameObject::AddRigidBody(RigidBody* body)
 {
-	//rigidBody = body;
-
-	
 }
 
 void GameObject::AddComponent(Component* comp)
 {
-	/*if ((Transform*)comp)
-		_transform = (Transform*)comp;*/
-	if ((Mesh*)comp)
-		_staticMesh = (Mesh*)comp;
-
-	//comp->owner = this;
+	comp->SetParentObject(this);
 }
 
 void GameObject::Update(float deltaTime)
