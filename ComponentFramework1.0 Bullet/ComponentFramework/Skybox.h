@@ -122,14 +122,15 @@ public:
 	void Render(Shader* shader)
 	{
 		glDepthMask(GL_FALSE);
-		shader->Use();
 
+		shader->Use();
 		glBindVertexArray(skyboxVAO);
 		glActiveTexture(GL_TEXTURE6);
 		glUniform1i(glGetUniformLocation(shader->Program, "skybox"), 6);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, texture);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 		glBindVertexArray(0);
+
 		glDepthMask(GL_TRUE);
 	}
 };

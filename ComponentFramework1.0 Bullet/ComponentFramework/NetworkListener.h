@@ -3,6 +3,7 @@
 
 #pragma once
 #include "Component.h"
+#include <SDL_events.h>
 
 class NetworkListener
 {
@@ -12,7 +13,7 @@ public:
 	~NetworkListener(){}
 
 	// Pure Virtual
-	virtual void ReceiveNetworkSDLEvent(const SDL_Event& sdlEvent) = 0;
+	virtual void ReceiveNetworkSDLEvent(const SDL_Event& sdlEvent) {}
 };
 
 #endif
