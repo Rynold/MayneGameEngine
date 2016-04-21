@@ -180,7 +180,7 @@ bool Scene0::OnCreate() {
 	GameObjects.push_back(refractionBox);
 
 	GameObject* nanoSuit = new GameObject;
-	nanoSuit->LoadModel("Models/Nanosuit/nanosuit.obj");
+	nanoSuit->LoadModel("Models/Barrel/RyanBarrel/barrel.obj");
 	nanoSuit->_transform->SetPosition(0.0, -5.0, -5.0);
 	nanoSuit->_transform->SetAxisAngleDeg(0,1,0,0);
 	nanoSuit->_transform->SetScale(0.3, 0.3, 0.3);
