@@ -14,6 +14,8 @@ GameSceneManager::GameSceneManager() : windowInstance(), currentScene(nullptr),i
 GameSceneManager::~GameSceneManager(){
 	windowInstance.OnDestroy();
 	isRunning = false;
+
+	//delete currentScene;
 }
 
 

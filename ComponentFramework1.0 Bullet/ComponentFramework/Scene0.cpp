@@ -34,8 +34,8 @@ Scene0::Scene0(class Window& windowRef):  Scene(windowRef) {
 		
 
 		std::cout << "Start as Server? (Y/N):" << std::endl;
-		//std::cin >> playerChoice;
-		playerChoice[0] = 'Y';
+		std::cin >> playerChoice;
+		//playerChoice[0] = 'Y';
 
 		if (playerChoice[0] == 'Y' || playerChoice[0] == 'y'){
 			nM = new NetworkManager(true);
@@ -62,6 +62,8 @@ Scene0::~Scene0(){
 	delete dirLight;
 	dirLight = nullptr;
 
+	delete reflectiveShader;
+	reflectiveShader = nullptr;
 
 	glDeleteFramebuffers(1, &this->depthMapFBO);
 	// Skybox memory is freed from parent class

@@ -1,2 +1,2 @@
-INFO: Initializing the window and first scene ( c:\gamedev\maynegameengine\componentframework1.0 bullet\componentframework\gamescenemanager.cpp: 86)
+INFO: Initializing the window and first scene ( c:\gamedev\maynegameengine\componentframework1.0 bullet\componentframework\gamescenemanager.cpp: 88)
 INFO: 1.13.0 ( c:\gamedev\maynegameengine\componentframework1.0 bullet\componentframework\window.cpp: 71)

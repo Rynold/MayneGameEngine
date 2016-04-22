@@ -39,8 +39,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\GameDev\SDL2-2.0.3\include;C:\GameDev\glew-1.13.0\include;C:\GameDev\assimp;C:\GameDev\SOIL\include;C:\GameDev\glm-0.9.7.1;C:\GameDev\SDL2_net-2.0.0\include;C:\GameDev\Havok\hk2014_1_0_r1\Source;C:\GameDev\BulletBuild\src;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\GameDev\Havok\hk2014_1_0_r1\Lib\win32_vs2012_win8\debug;C:\GameDev\SOIL\lib;C:\GameDev\BulletBuild\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\GameDev\SDL2-2.0.3\include;C:\GameDev\glew-1.13.0\include;C:\GameDev\assimp;C:\GameDev\SOIL\include;C:\GameDev\glm-0.9.7.1;C:\GameDev\SDL2_net-2.0.0\include;C:\GameDev\Havok\hk2014_1_0_r1\Source;C:\GameDev\BulletBuild\src;C:\Program Files %28x86%29\Visual Leak Detector\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\GameDev\Havok\hk2014_1_0_r1\Lib\win32_vs2012_win8\debug;C:\GameDev\SOIL\lib;C:\GameDev\BulletBuild\lib;C:\Program Files %28x86%29\Visual Leak Detector\lib\Win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -53,7 +53,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>C:\GameDev\SDL2-2.0.3\lib\x86\SDL2.lib;C:\GameDev\SDL2-2.0.3\lib\x86\SDL2main.lib;C:\GameDev\glew-1.13.0\lib\Release\Win32\glew32.lib;C:\GameDev\glew-1.13.0\lib\Release\Win32\glew32s.lib;C:\Program Files (x86)\Windows Kits\8.1\Lib\winv6.3\um\x86\OpenGL32.lib;C:\GameDev\assimp\lib\assimp.lib;C:\GameDev\SOIL\lib\SOIL.lib;C:\GameDev\SDL2_net-2.0.0\lib\x86\SDL2_net.lib;hkBase.lib;hkVisualize.lib;hkInternal.lib;hkSerialize.lib;hkGeometryUtilities.lib;hkImageUtilities.lib;hkcdInternal.lib;hkcdCollide.lib;hkpCollide.lib;hkpConstraint.lib;hkpConstraintSolver.lib;hkpDynamics.lib;hkpInternal.lib;hkpUtilities.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>C:\GameDev\SDL2-2.0.3\lib\x86\SDL2.lib;C:\GameDev\SDL2-2.0.3\lib\x86\SDL2main.lib;C:\GameDev\glew-1.13.0\lib\Release\Win32\glew32.lib;C:\GameDev\glew-1.13.0\lib\Release\Win32\glew32s.lib;C:\Program Files (x86)\Windows Kits\8.1\Lib\winv6.3\um\x86\OpenGL32.lib;C:\GameDev\assimp\lib\assimp.lib;C:\GameDev\SOIL\lib\SOIL.lib;C:\GameDev\SDL2_net-2.0.0\lib\x86\SDL2_net.lib;hkBase.lib;hkVisualize.lib;hkInternal.lib;hkSerialize.lib;hkGeometryUtilities.lib;hkImageUtilities.lib;hkcdInternal.lib;hkcdCollide.lib;hkpCollide.lib;hkpConstraint.lib;hkpConstraintSolver.lib;hkpDynamics.lib;hkpInternal.lib;hkpUtilities.lib;vld.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>C:\GameDev\Havok\hk2014_1_0_r1\Lib\win32_vs2012_win8\debug;C:\GameDev\BulletBuild\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
