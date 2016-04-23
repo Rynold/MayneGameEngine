@@ -17,16 +17,26 @@ GameObject::~GameObject()
 	delete _transform;
 
 	//Cleans up the components vector
-	for (std::vector<Component*>::iterator it = components.begin(); it != components.end(); ++it)
+	/*for (std::vector<Component*>::iterator it = components.begin(); it != components.end(); ++it)
 	{
 		delete(*it);
-	}
+	}*/
 	components.clear();
 
+	meshs.clear();
+
+	//delete shaderID;
+
+	//delete body;
+	body = nullptr;
+
+	delete loader;
+	loader = nullptr;
 }
 
 void GameObject::AddRigidBody(RigidBody* body)
 {
+	//this->body = body;
 }
 
 void GameObject::AddComponent(Component* comp)
@@ -61,7 +71,7 @@ void GameObject::Draw(Shader* shader)
 		glUniformMatrix4fv(glGetUniformLocation(shader->Program, "RotationMatrix"), 1, GL_FALSE, &mat[0]);
 
 
-		for (int i = 0; i < meshs.size(); ++i){
+		for (int i = 0; i < (int)meshs.size(); ++i){
 			meshs[i]->DrawMesh(shader);
 		}
 	}

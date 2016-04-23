@@ -21,12 +21,14 @@ BulletPhysics::~BulletPhysics()
 		delete obj;
 	}
 
+	delete m_dynamicsWorld->getDebugDrawer();
 	//delete collision shapes
-	for (int j = 0; j<m_collisionShapes.size(); j++)
+	for (int j = m_collisionShapes.size() - 1; j >= 0; j--)
 	{
-		btCollisionShape* shape = m_collisionShapes[j];
-		delete shape;
+		delete m_collisionShapes[j];
+		m_collisionShapes.pop_back();
 	}
+	//m_collisionShapes.clear();
 
 	//delete dynamics world
 	delete m_dynamicsWorld;
@@ -41,6 +43,8 @@ BulletPhysics::~BulletPhysics()
 	delete m_dispatcher;
 
 	delete m_collisionConfiguration;
+
+	delete m_indexVertexArrays;
 }
 
 void BulletPhysics::initPhysics()

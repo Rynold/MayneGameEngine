@@ -53,6 +53,7 @@ public:
 	// Constructor with scalar values
 	Camera(GLfloat posX, GLfloat posY, GLfloat posZ, GLfloat upX, GLfloat upY, GLfloat upZ, GLfloat yaw, GLfloat pitch);
 
+	~Camera();
 	// Returns the view matrix calculated using Eular Angles and the LookAt Matrix
 	glm::mat4 GetViewMatrix()
 	{
@@ -64,7 +65,7 @@ public:
 	void ProcessMovement(Camera_Movement direction, GLfloat deltaTime);
 
 	// Processes input received from a mouse input system. Expects the offset value in both the x and y direction.
-	void ProcessMouseMovement(GLfloat xoffset, GLfloat yoffset, GLboolean constrainPitch = true);
+	void ProcessMouseMovement(GLint xoffset, GLint yoffset, GLboolean constrainPitch = true);
 
 	// Processes input received from a mouse scroll-wheel event. Only requires input on the vertical wheel-axis
 	void ProcessMouseScroll(GLfloat yoffset);

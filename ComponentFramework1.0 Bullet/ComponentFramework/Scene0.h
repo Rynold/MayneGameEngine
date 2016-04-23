@@ -37,7 +37,7 @@ namespace GAME {
 
 		// = 1024;
 
-		float lastMouseX, lastMouseY;
+		int lastMouseX, lastMouseY;
 		bool firstMouse;// = true;
 		bool rightClickDown;// = false;
 		

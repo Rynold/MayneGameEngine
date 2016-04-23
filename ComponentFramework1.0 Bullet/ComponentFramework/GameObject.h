@@ -19,7 +19,7 @@ class GameObject
 {
 public:
 	GameObject();
-	~GameObject();
+	virtual ~GameObject();
 
 	/*GameObject(const GameObject&) = delete;
 	GameObject(GameObject&&) = delete;

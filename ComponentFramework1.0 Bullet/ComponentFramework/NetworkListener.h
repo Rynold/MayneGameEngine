@@ -13,7 +13,7 @@ public:
 	~NetworkListener(){}
 
 	// Pure Virtual
-	virtual void ReceiveNetworkSDLEvent(const SDL_Event& sdlEvent) {}
+	virtual void ReceiveNetworkSDLEvent(const SDL_Event& sdlEvent) = 0;
 };
 
 #endif

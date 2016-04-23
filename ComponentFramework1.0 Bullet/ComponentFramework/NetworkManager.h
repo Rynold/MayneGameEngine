@@ -30,7 +30,11 @@ public:
 	}
 	~Server()
 	{
-		listeners.clear();
+		for (int i = listeners.size(); i >= 0; i--)
+		{
+			delete listeners[i];
+			listeners.pop_back();
+		}
 
 		SDLNet_FreePacket(p);
 		SDLNet_Quit();

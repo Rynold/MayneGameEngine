@@ -9,7 +9,7 @@ class MathUtil
 public:
 	inline static float DegToRads(float deg)
 	{
-		return deg * DEGREES_TO_RADIANS;
+		return float(deg * DEGREES_TO_RADIANS);
 	}
 };
 

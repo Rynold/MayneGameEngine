@@ -65,6 +65,20 @@ Scene0::~Scene0(){
 	delete reflectiveShader;
 	reflectiveShader = nullptr;
 
+	delete skyboxShader;
+	skyboxShader = nullptr;
+
+	delete viewCamera;
+
+	delete bP;
+	bP = nullptr;
+
+	for (int i = GameObjects.size() - 1; i >= 0; i--)
+	{
+		delete GameObjects[i];
+		GameObjects.pop_back();
+	}
+
 	glDeleteFramebuffers(1, &this->depthMapFBO);
 	// Skybox memory is freed from parent class
 }
@@ -146,7 +160,7 @@ bool Scene0::OnCreate() {
 		cube->GetMesh()->material = boxMat;
 		cube->AttachShader(sceneShader, "sceneShader");
 
-		cube->_transform->SetPosition(0, 2.5 * i, 0);
+		cube->_transform->SetPosition(0, 2.5f * i, 0);
 		//cube->_transform->SetRotation(1, 0, 1, 45);
 
 		float mass = 5;
@@ -185,7 +199,7 @@ bool Scene0::OnCreate() {
 	nanoSuit->LoadModel("Models/Barrel/RyanBarrel/barrel.obj");
 	nanoSuit->_transform->SetPosition(0.0, -5.0, -5.0);
 	nanoSuit->_transform->SetAxisAngleDeg(0,1,0,0);
-	nanoSuit->_transform->SetScale(0.3, 0.3, 0.3);
+	nanoSuit->_transform->SetScale(0.3f, 0.3f, 0.3f);
 	nanoSuit->AttachShader(new Shader("Shaders/modelShader.vert","Shaders/modelShader.frag"), "modelShader");
 	GameObjects.push_back(nanoSuit);
 
@@ -210,9 +224,9 @@ void Scene0::OnDestroy(){
 
 void Scene0::Update(const float deltaTime){
 
-	angle += 2;
+	//angle += 2;
 
-	float rad = angle * (3.14159265359 / 180);
+	//float rad = angle * (3.14159265359 / 180);
 
 	//box->_transform->rotation.w = rad;
 
@@ -335,8 +349,6 @@ void RenderQuad()
 
 void Scene0::HandleEvents(const SDL_Event& SDLEvent, float deltaTime){
 	///std::cout << "event!!" << std::endl;
-
-	
 
 	switch (SDLEvent.type) {
 		case SDL_EventType::SDL_MOUSEBUTTONDOWN:

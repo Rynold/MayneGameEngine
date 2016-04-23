@@ -19,9 +19,13 @@ public:
 
 	void LoadTexture(const char* path, TextureType type);
 
+	~TextureManager();
+
+	void Delete();
+
 private:
 	TextureManager();
-	~TextureManager();
+	
 
 	static TextureManager* manager;
 

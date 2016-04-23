@@ -2,7 +2,7 @@
 #include <GL\glew.h>
 
 
-static class Uniforms{
+class Uniforms{
 	static glm::mat4 projectionMatrix;
 	static glm::mat4 cameraViewMatrix;
 

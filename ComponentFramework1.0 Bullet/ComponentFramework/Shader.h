@@ -7,7 +7,7 @@
 #include <sstream>
 #include <iostream>
 
-#include <GL/glew.h>; // Include glew to get all the required OpenGL headers
+#include <GL/glew.h> // Include glew to get all the required OpenGL headers
 
 class Shader
 {

@@ -39,7 +39,7 @@ public:
 		btQuaternion rot = worldTrans.getRotation();
 		btVector3 pos = worldTrans.getOrigin();
 		object->_transform->SetBulletTransform(worldTrans);
-		GLfloat m[16];
+		//GLfloat m[16];
 		//worldTrans.getOpenGLMatrix(&(object->_transform->temp[0]));
 
 		//object->SetPosition(pos.getX(), pos.getY(), pos.getZ());

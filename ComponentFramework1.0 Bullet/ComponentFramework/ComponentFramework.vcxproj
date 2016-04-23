@@ -83,9 +83,9 @@
     <ClCompile Include="GLDebugDrawer.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MaterialManager.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MMath.cpp" />
-    <ClCompile Include="Model.cpp" />
     <ClCompile Include="ModelLoader.cpp" />
     <ClCompile Include="NetworkManager.cpp" />
     <ClCompile Include="Object.cpp" />
@@ -115,7 +115,6 @@
     <ClInclude Include="MColor.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MMath.h" />
-    <ClInclude Include="Model.h" />
     <ClInclude Include="ModelLoader.h" />
     <ClInclude Include="MyMotionState.h" />
     <ClInclude Include="NetworkManager.h" />

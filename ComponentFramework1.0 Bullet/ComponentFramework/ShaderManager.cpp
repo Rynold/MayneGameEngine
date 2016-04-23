@@ -7,12 +7,23 @@ ShaderManager::ShaderManager()
 	count = 0;
 }
 
-
-ShaderManager::~ShaderManager()
+void ShaderManager::Delete()
 {
 	delete instance;
 	instance = nullptr;
-	shaders.clear();
+}
+
+ShaderManager::~ShaderManager()
+{
+	auto it = shaders.begin();
+	while (it != shaders.end())
+	{
+		it = shaders.erase(it);
+	}
+
+	//delete instance;
+	//instance = nullptr;
+	
 }
 
 Shader* ShaderManager::GetShader(int i)

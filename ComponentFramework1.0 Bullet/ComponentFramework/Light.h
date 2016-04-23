@@ -14,8 +14,10 @@ public:
 	{
 		color = MColor::GREEN();
 	}
-	~Light()
-	{}
+	virtual ~Light()
+	{
+		glDeleteBuffers(1, &depthMapFBO);
+	}
 
 	MColor color;
 
@@ -43,7 +45,7 @@ public:
 
 		shaderID = ShaderManager::GetInstance()->Insert("Triangles", new Shader("triangles.vert", "triangles.frag"));
 	}
-	~DirectionalLight()
+	virtual ~DirectionalLight()
 	{
 	}
 
@@ -73,6 +75,7 @@ public:
 			}
 		
 		}
+		shader = nullptr;
 	}
 
 	virtual void GenerateDepthMapFBO() override
@@ -110,9 +113,9 @@ public:
 	{
 		constant = 1.0f;
 		linear = 0.09f;
-		quadratic = 0.032;
+		quadratic = 0.032f;
 	}
-	~PointLight()
+	virtual ~PointLight()
 	{
 	}
 

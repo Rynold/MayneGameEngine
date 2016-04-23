@@ -8,7 +8,8 @@ Component::Component()
 
 Component::~Component()
 {
-
+	delete child;
+	child = nullptr;
 }
 
 Component* Component::GetParent()

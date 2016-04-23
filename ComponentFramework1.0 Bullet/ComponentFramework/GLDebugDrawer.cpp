@@ -14,6 +14,8 @@ GLDebugDrawer::~GLDebugDrawer()
 {
 	glDeleteBuffers(1, &this->VAO);
 	glDeleteBuffers(1, &this->VBO);
+
+	delete debugShader;
 }
 
 void GLDebugDrawer::DrawWorld(glm::mat4 proj, glm::mat4 mod)

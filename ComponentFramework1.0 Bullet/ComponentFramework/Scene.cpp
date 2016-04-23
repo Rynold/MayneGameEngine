@@ -10,5 +10,8 @@ Scene::Scene(Window& windowRef): windowPtr(&windowRef)
 Scene::~Scene() {
 	delete skybox;
 	skybox = nullptr;
+
+	TextureManager::GetInstance()->Delete();
+	ShaderManager::GetInstance()->Delete();
 }
 

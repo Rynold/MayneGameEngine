@@ -10,10 +10,20 @@ TextureManager::TextureManager()
 
 TextureManager::~TextureManager()
 {
+	auto it = textures.begin();
+	while ( it != textures.end())
+	{
+		it = textures.erase(it);
+	}
+	//delete manager;
+	//manager = nullptr;
+}
+
+void TextureManager::Delete()
+{
 	delete manager;
 	manager = nullptr;
 }
-
 
 TextureManager* TextureManager::GetInstance()
 {

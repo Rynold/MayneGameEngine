@@ -39,6 +39,11 @@ Camera::Camera(GLfloat posX, GLfloat posY, GLfloat posZ, GLfloat upX, GLfloat up
 	//this->updateCameraVectors();
 }
 
+Camera::~Camera()
+{
+
+}
+
 void Camera::ProcessMovement(Camera_Movement direction, GLfloat deltaTime)
 {
 	//std::cout << "Camera Movement" << std::endl;
@@ -57,7 +62,7 @@ void Camera::ProcessMovement(Camera_Movement direction, GLfloat deltaTime)
 		_transform->SetPosition(_transform->Position() -= _transform->worldUp * velocity);
 }
 
-void Camera::ProcessMouseMovement(GLfloat xoffset, GLfloat yoffset, GLboolean constrainPitch)
+void Camera::ProcessMouseMovement(GLint xoffset, GLint yoffset, GLboolean constrainPitch)
 {
 	//std::cout << "xoffset: " << xoffset << " / yoffset: " << yoffset << std::endl;
 

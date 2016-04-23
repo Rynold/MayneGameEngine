@@ -21,6 +21,8 @@ public:
 
 	Shader* GetShader(int i);
 
+	void Delete();
+
 	/*void SendUniformsToShader(glm::mat4& proj, glm::mat4& mod, glm::mat4& light, glm::vec3& viewPos)
 	{
 		glUniformMatrix4fv(glGetUniformLocation(sceneShader->Program, "lightSpaceMatrix"), 1, GL_FALSE, light[0][0]);
@@ -28,10 +30,10 @@ public:
 		glUniformMatrix4fv(glGetUniformLocation(sceneShader->Program, "CameraViewMatrix"), 1, GL_FALSE, &modelViewMatrix[0][0]);
 		glUniform3f(glGetUniformLocation(sceneShader->Program, "viewPos"), viewCamera->_transform->position.x, viewCamera->_transform->position.y, viewCamera->_transform->position.z);
 	}*/
-
+	~ShaderManager();
 private:
 	ShaderManager();
-	~ShaderManager();
+	
 
 	std::map<const char*,Shader*> shaders;
 

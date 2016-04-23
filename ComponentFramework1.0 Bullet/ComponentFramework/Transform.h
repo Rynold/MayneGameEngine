@@ -44,7 +44,7 @@ public:
 
 	void SetAxisAngleDeg(float x, float y, float z, float angle)
 	{
-		angle *= 3.14 / 180;
+		angle *= 3.14f / 180;
 		angle /= 2;
 		float sinV = sin(angle);
 		float cosV = cos(angle);

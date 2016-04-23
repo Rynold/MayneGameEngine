@@ -39,6 +39,8 @@ void ModelLoader::processNode(aiNode* node, const aiScene* scene, GameObject* ob
 
 		object->meshs.reserve(node->mNumMeshes);
 		object->AttachMesh(processMesh(mesh, scene));
+
+		mesh = nullptr;
 	}
 	// After we've processed all of the meshes (if any) we then recursively process each of the children nodes
 	for (GLuint i = 0; i < node->mNumChildren; i++)
