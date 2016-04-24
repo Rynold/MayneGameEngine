@@ -26,6 +26,7 @@ void ModelLoader::LoadModel(string path, GameObject* object)
 
 	// Process ASSIMP's root node recursively
 	this->processNode(scene->mRootNode, scene, object);
+
 }
 
 void ModelLoader::processNode(aiNode* node, const aiScene* scene, GameObject* object)
@@ -96,14 +97,11 @@ Mesh* ModelLoader::processMesh(aiMesh* mesh, const aiScene* scene)
 	// Now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding vertex indices.
 	for (GLuint i = 0; i < mesh->mNumFaces; i++)
 	{
-		aiFace *face = new aiFace();
-		face = &(mesh->mFaces[i]);
+		aiFace face = (mesh->mFaces[i]);
 		// Retrieve all indices of the face and store them in the indices vector
-		for (GLuint j = 0; j < face->mNumIndices; j++)
-			indices.push_back(face->mIndices[j]);
+		for (GLuint j = 0; j < face.mNumIndices; j++)
+			indices.push_back(face.mIndices[j]);
 
-		face = NULL;
-		delete face;
 	}
 	// Process materials
 	if (mesh->mMaterialIndex >= 0)

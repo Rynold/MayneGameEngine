@@ -21,9 +21,17 @@ GameObject::~GameObject()
 	{
 		delete(*it);
 	}*/
-	components.clear();
+	for (int i = components.size() - 1; i >= 0; --i)
+	{
+		delete components[i];
+		components.pop_back();
+	}
 
-	meshs.clear();
+	for (int i = meshs.size() - 1; i >= 0; --i)
+	{
+		delete meshs[i];
+		meshs.pop_back();
+	}
 
 	//delete shaderID;
 
@@ -61,10 +69,9 @@ void GameObject::Draw(Shader* shader)
 	else{
 		shader->Use();
 
-
-		glm::mat4 scale = glm::scale(glm::mat4(1), glm::vec3(_transform->Scale().x, _transform->Scale().y, _transform->Scale().z));
+		/*glm::mat4 scale = glm::scale(glm::mat4(1), glm::vec3(_transform->Scale().x, _transform->Scale().y, _transform->Scale().z));
 		glm::mat4 rotate = glm::rotate(scale, _transform->Rotation().w, glm::vec3(_transform->Rotation().x, _transform->Rotation().y, _transform->Rotation().z));
-		glm::mat4 translation = glm::translate(rotate, glm::vec3(_transform->Position().x, _transform->Position().y, _transform->Position().z));
+		glm::mat4 translation = glm::translate(rotate, glm::vec3(_transform->Position().x, _transform->Position().y, _transform->Position().z));*/
 		//glUniformMatrix4fv(glGetUniformLocation(shader->Program, "RotationMatrix"), 1, GL_FALSE, &translation[0][0]);
 		GLfloat mat[16];
 		_transform->GetBulletTransform().getOpenGLMatrix(&mat[0]);

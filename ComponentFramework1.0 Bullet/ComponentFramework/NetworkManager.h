@@ -28,13 +28,15 @@ public:
 		if (!(p = SDLNet_AllocPacket(sizeof(SDL_Event))))
 			std::cout << "SDLNet_AllocPacket Failure: " << SDLNet_GetError() << std::endl;
 	}
-	~Server()
+	virtual ~Server()
 	{
-		for (int i = listeners.size(); i >= 0; i--)
+		/*for (int i = listeners.size() - 1; i >= 0; i--)
 		{
 			delete listeners[i];
 			listeners.pop_back();
-		}
+		}*/
+
+		listeners.clear();
 
 		SDLNet_FreePacket(p);
 		SDLNet_Quit();
@@ -93,7 +95,7 @@ public:
 		if (!(p = SDLNet_AllocPacket(sizeof(SDL_Event))))
 			std::cout << "SDLNet_AllocPacket Failure: " << SDLNet_GetError() << std::endl;
 	}
-	~Client()
+	virtual ~Client()
 	{
 		SDLNet_FreePacket(p);
 		SDLNet_Quit();

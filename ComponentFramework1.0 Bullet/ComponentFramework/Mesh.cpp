@@ -30,7 +30,7 @@ Mesh::~Mesh()
 	glDeleteBuffers(1, &this->VBO);
 	glDeleteBuffers(1, &this->EBO);
 	glDeleteBuffers(1, &tangentBuffer);
-	delete material;
+
 }
 
 void Mesh::initPlane()

@@ -29,7 +29,9 @@ public:
 		this->tex = tex;
 		active = true;
 	}
-	~Texture(){}
+	~Texture(){
+		glDeleteTextures(1, &tex);
+	}
 
 	TextureType type;
 	bool active;

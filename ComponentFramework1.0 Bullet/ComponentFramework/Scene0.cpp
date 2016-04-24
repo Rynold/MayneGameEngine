@@ -73,6 +73,12 @@ Scene0::~Scene0(){
 	delete bP;
 	bP = nullptr;
 
+	delete temp;
+	temp = nullptr;
+
+	delete nM;
+	nM = nullptr;
+
 	for (int i = GameObjects.size() - 1; i >= 0; i--)
 	{
 		delete GameObjects[i];
