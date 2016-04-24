@@ -36,10 +36,10 @@ namespace GAME {
 		virtual void HandleEvents(const SDL_Event &SDLEvent, float deltaTime) = 0;
 		virtual void OnResize(int w_, int h_) = 0;
 
-		Shader* sceneShader;
-		Shader* simpleDepthShader;
-		Shader* skyboxShader;
-		Shader* temp;
+		std::shared_ptr<Shader> sceneShader;
+		std::shared_ptr<Shader> simpleDepthShader;
+		std::shared_ptr<Shader> skyboxShader;
+		std::shared_ptr<Shader> temp;
 
 		Skybox* skybox;
 		NetworkManager* nM;

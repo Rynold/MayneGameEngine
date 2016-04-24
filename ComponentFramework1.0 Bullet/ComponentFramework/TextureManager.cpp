@@ -33,7 +33,7 @@ TextureManager* TextureManager::GetInstance()
 	return manager;
 }
 
-Texture* TextureManager::Contains(const char* name)
+std::shared_ptr<Texture> TextureManager::Contains(const char* name)
 {
 	if (textures.find(name) != textures.end())
 		return textures.find(name)->second;
@@ -41,9 +41,9 @@ Texture* TextureManager::Contains(const char* name)
 		return nullptr;
 }
 
-void TextureManager::Insert(const char* path,Texture* tex)
+void TextureManager::Insert(const char* path,std::shared_ptr<Texture> tex)
 {
-	textures.insert(std::pair<const char*, Texture*>(path, tex));
+	textures.insert(std::pair<const char*, std::shared_ptr<Texture>>(path, tex));
 }
 
 void TextureManager::LoadTexture(const char* path, TextureType type)
@@ -70,6 +70,6 @@ void TextureManager::LoadTexture(const char* path, TextureType type)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
 
-		TextureManager::GetInstance()->Insert(path, new Texture(path, type, texture));
+		TextureManager::GetInstance()->Insert(path, std::shared_ptr<Texture>(new Texture(path, type, texture)));
 	}
 }

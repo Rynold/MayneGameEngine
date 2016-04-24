@@ -53,17 +53,17 @@ public:
 	vector<GLuint> indices;
 	vector<Tex> textures;
 
-	Material* material;
+	std::shared_ptr<Material> material;
 
 	/*  Functions  */
 	Mesh(EMeshType type);
 	Mesh(vector<Vertex> vertices, vector<GLuint> indices, vector<Tex> textures);
 	~Mesh();
-	void Draw(Shader* shader);
-	void Draw(Shader* shader, int temp);
-	void DrawPlane(Shader* shader);
-	void DrawCube(Shader* shader);
-	void DrawMesh(Shader* shader);
+	void Draw(std::shared_ptr<Shader> shader);
+	void Draw(std::shared_ptr<Shader> shader, int temp);
+	void DrawPlane(std::shared_ptr<Shader> shader);
+	void DrawCube(std::shared_ptr<Shader> shader);
+	void DrawMesh(std::shared_ptr<Shader> shader);
 
 	EMeshType type;
 

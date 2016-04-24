@@ -43,7 +43,7 @@ public:
 		SHADOW_HEIGHT = 1024;
 		SHADOW_WIDTH = 1024;
 
-		shaderID = ShaderManager::GetInstance()->Insert("Triangles", new Shader("triangles.vert", "triangles.frag"));
+		shaderID = ShaderManager::GetInstance()->Insert("Triangles", std::shared_ptr<Shader>(new Shader("triangles.vert", "triangles.frag")));
 	}
 	virtual ~DirectionalLight()
 	{
@@ -51,14 +51,14 @@ public:
 
 	Vec3 _direction;
 
-	virtual Shader* GetShader() override
+	virtual std::shared_ptr<Shader> GetShader() override
 	{
 		return ShaderManager::GetInstance()->Contains(shaderID);
 	}
 
 	virtual void CreateDepthMap(vector<GameObject*> GameObjects, glm::mat4 lightSpaceMatrix) override
 	{
-		Shader* shader = ShaderManager::GetInstance()->Contains(shaderID);
+		std::shared_ptr<Shader> shader = ShaderManager::GetInstance()->Contains(shaderID);
 		if (shader)
 		{
 			shader->Use();

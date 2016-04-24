@@ -67,7 +67,7 @@ public:
 
 	}
 
-	void AttachShader(Shader* shader, const char* name)
+	void AttachShader(std::shared_ptr<Shader> shader, const char* name)
 	{
 		shaderID = ShaderManager::GetInstance()->Insert(name, shader);
 	}
@@ -107,7 +107,7 @@ public:
 		TextureManager::GetInstance()->LoadTexture(path, type);
 	}
 
-	void SetupShader(Shader* shader)
+	void SetupShader(std::shared_ptr<Shader> shader)
 	{
 
 		TextureManager* texMan = TextureManager::GetInstance();

@@ -57,8 +57,6 @@ Mesh* ModelLoader::processMesh(aiMesh* mesh, const aiScene* scene)
 	vector<GLuint> indices;
 	vector<Tex> textures;
 
-	Mesh* thisMesh = new Mesh(EMeshType::CUSTOM);
-
 	// Walk through each of the mesh's vertices
 	for (GLuint i = 0; i < mesh->mNumVertices; i++)
 	{
@@ -114,7 +112,7 @@ Mesh* ModelLoader::processMesh(aiMesh* mesh, const aiScene* scene)
 		// Specular: texture_specularN
 		// Normal: texture_normalN
 
-		Material* mat = new Material();
+		std::shared_ptr<Material> mat = std::shared_ptr<Material>(new Material());
 		aiString str;
 
 		material->GetTexture(aiTextureType_DIFFUSE, 0, &str);
@@ -132,10 +130,12 @@ Mesh* ModelLoader::processMesh(aiMesh* mesh, const aiScene* scene)
 		filename = directory + '/' + filename;
 		//mat->AttachTexture(filename.c_str(), TextureType::NORMAL);
 
-		thisMesh = new Mesh(vertices, indices, textures);
+		Mesh* thisMesh = new Mesh(vertices, indices, textures);
 		thisMesh->material = mat;
+
+		return thisMesh;
 	}
 
 	// Return a mesh object created from the extracted mesh data
-	return thisMesh;
+	return nullptr;
 }

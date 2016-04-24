@@ -20,13 +20,12 @@ ShaderManager::~ShaderManager()
 	{
 		it = shaders.erase(it);
 	}
-
 	//delete instance;
 	//instance = nullptr;
 	
 }
 
-Shader* ShaderManager::GetShader(int i)
+std::shared_ptr<Shader> ShaderManager::GetShader(int i)
 {
 	count = 0;
 	for (auto it = shaders.begin(); it != shaders.end(); ++it)
@@ -58,17 +57,17 @@ void ShaderManager::SendLightingDataToShaders()
 	}
 }
 
-const char* ShaderManager::Insert(const char* id, Shader* shader)
+const char* ShaderManager::Insert(const char* id, std::shared_ptr<Shader> shader)
 {
 	if (!Contains(shader->id)){
 		count++;
-		shaders.insert(std::pair<const char*, Shader*>(id, shader));
+		shaders.insert(std::pair<const char*, std::shared_ptr<Shader>>(id, shader));
 	}
 
 	return id;
 }
 
-Shader* ShaderManager::Contains(const char* id)
+std::shared_ptr<Shader> ShaderManager::Contains(const char* id)
 {
 	if (shaders.find(id) != shaders.end())
 		return shaders.find(id)->second;

@@ -13,8 +13,9 @@ GameObject::GameObject()
 
 GameObject::~GameObject()
 {
-	_transform = nullptr;
 	delete _transform;
+	_transform = nullptr;
+	
 
 	//Cleans up the components vector
 	/*for (std::vector<Component*>::iterator it = components.begin(); it != components.end(); ++it)
@@ -61,7 +62,7 @@ void GameObject::LoadModel(std::string path)
 	loader->LoadModel(path, this);
 }
 
-void GameObject::Draw(Shader* shader)
+void GameObject::Draw(std::shared_ptr<Shader> shader)
 {
 	///If there isn't anything to draw then just get out of this.
 	if (meshs.size() <= 0)
@@ -90,12 +91,12 @@ void GameObject::DrawDebug(btDynamicsWorld* world)
 		world->debugDrawObject(body->getWorldTransform(),body->getCollisionShape(), btVector3(1.0,0.0,0.0));
 }
 
-Shader* GameObject::GetShader()
+std::shared_ptr<Shader> GameObject::GetShader()
 {
 	return ShaderManager::GetInstance()->Contains(shaderID);
 }
 
-void GameObject::AttachShader(Shader* shader, const char* name)
+void GameObject::AttachShader(std::shared_ptr<Shader> shader, const char* name)
 {
 	shaderID = ShaderManager::GetInstance()->Insert(name, shader);
 }

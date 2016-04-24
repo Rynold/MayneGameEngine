@@ -125,7 +125,7 @@ public:
 		return textureID;
 	}
 
-	void Render(Shader* shader)
+	void Render(std::shared_ptr<Shader> shader)
 	{
 		glDepthMask(GL_FALSE);
 

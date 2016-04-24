@@ -202,7 +202,7 @@ void Mesh::initCube()
 
 	//textures.insert(textures.end(), texture);
 
-	material = new Material();
+	material = std::shared_ptr<Material>(new Material());
 
 	this->setupMesh();
 }
@@ -321,7 +321,7 @@ Mesh::Mesh(vector<Vertex> vertices, vector<GLuint> indices, vector<Tex> textures
 	this->indices = indices;
 	this->textures = textures;
 
-	material = new Material();
+	material = std::shared_ptr<Material>(new Material());
 
 	type = CUSTOM;
 	// Now that we have all the required data, set the vertex buffers and its attribute pointers.
@@ -363,7 +363,7 @@ void Mesh::setupMesh()
 	glBindVertexArray(0);
 }
 
-void Mesh::Draw(Shader* shader)
+void Mesh::Draw(std::shared_ptr<Shader> shader)
 {
 	material->SetupShader(shader);
 
@@ -380,7 +380,7 @@ void Mesh::Draw(Shader* shader)
 	}
 }
 
-void Mesh::DrawPlane(Shader* shader)// , GLuint shadowMap, GLuint skybox, bool reflective)
+void Mesh::DrawPlane(std::shared_ptr<Shader> shader)// , GLuint shadowMap, GLuint skybox, bool reflective)
 {
 	material->SetupShader(shader);// , shadowMap, skybox, reflective);
 	
@@ -389,7 +389,7 @@ void Mesh::DrawPlane(Shader* shader)// , GLuint shadowMap, GLuint skybox, bool r
 	glBindVertexArray(0);
 }
 
-void Mesh::DrawMesh(Shader* shader)//, GLuint shadowMap, GLuint skybox, bool reflective)
+void Mesh::DrawMesh(std::shared_ptr<Shader> shader)//, GLuint shadowMap, GLuint skybox, bool reflective)
 {
 	if (type == CUBE)
 		DrawCube(shader);// , shadowMap, skybox, reflective);
@@ -399,7 +399,7 @@ void Mesh::DrawMesh(Shader* shader)//, GLuint shadowMap, GLuint skybox, bool ref
 		Draw(shader);
 }
 
-void Mesh::DrawCube(Shader* shader)//, GLuint shadowMap, GLuint skybox, bool reflective)
+void Mesh::DrawCube(std::shared_ptr<Shader> shader)//, GLuint shadowMap, GLuint skybox, bool reflective)
 {
 	material->SetupShader(shader);// , shadowMap, skybox, reflective);
 	

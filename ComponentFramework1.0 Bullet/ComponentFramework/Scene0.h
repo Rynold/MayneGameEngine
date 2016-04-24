@@ -45,7 +45,7 @@ namespace GAME {
 		GameObject* box;
 		GameObject* reflectiveBox;
 
-		Shader* reflectiveShader;
+		std::shared_ptr<Shader> reflectiveShader;
 
 		BulletPhysics* bP;
 	};

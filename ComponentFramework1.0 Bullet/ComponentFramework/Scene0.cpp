@@ -14,10 +14,10 @@ float angle = 45;
 
 Scene0::Scene0(class Window& windowRef):  Scene(windowRef) {
 	viewCamera = new Camera(glm::vec3(0.0, 4.0, 10.0), glm::vec3(0.0, 1.0, 0.0), -90, -20);
-	temp = new Shader("Shaders/TBNShader.vert", "Shaders/TBNShader.frag");
-	sceneShader = new Shader("Shaders/ParallaxShader.vert", "Shaders/ParallaxShader.frag");
-	skyboxShader = new Shader("Shaders/skybox.vert", "Shaders/skybox.frag");
-	reflectiveShader = new Shader("Shaders/reflectionShader.vert", "Shaders/reflectionShader.frag");
+	temp = std::shared_ptr<Shader>(new Shader("Shaders/TBNShader.vert", "Shaders/TBNShader.frag"));
+	sceneShader = std::shared_ptr<Shader>(new Shader("Shaders/ParallaxShader.vert", "Shaders/ParallaxShader.frag"));
+	skyboxShader = std::shared_ptr<Shader>(new Shader("Shaders/skybox.vert", "Shaders/skybox.frag"));
+	reflectiveShader = std::shared_ptr<Shader>(new Shader("Shaders/reflectionShader.vert", "Shaders/reflectionShader.frag"));
 	sceneShader->Use();
 	pointLight = new PointLight();
 	dirLight = new DirectionalLight();
@@ -62,10 +62,8 @@ Scene0::~Scene0(){
 	delete dirLight;
 	dirLight = nullptr;
 
-	delete reflectiveShader;
 	reflectiveShader = nullptr;
 
-	delete skyboxShader;
 	skyboxShader = nullptr;
 
 	delete viewCamera;
@@ -73,7 +71,6 @@ Scene0::~Scene0(){
 	delete bP;
 	bP = nullptr;
 
-	delete temp;
 	temp = nullptr;
 
 	delete nM;
@@ -94,16 +91,16 @@ bool Scene0::OnCreate() {
 	/// Load Assets: as needed 
 	sceneShader->Use();
 
-	Material* boxMat = new Material();
+	std::shared_ptr<Material> boxMat = std::shared_ptr<Material>(new Material());
 	boxMat->AttachTexture("Images/Parallax/wood.png", TextureType::DIFFUSE);
 	boxMat->AttachTexture("Images/Parallax/toy_box_normal.png", TextureType::NORMAL);
 	boxMat->AttachTexture("Images/Parallax/toy_box_disp.png", TextureType::HEIGHT);
 
-	Material* floorMat = new Material();
+	std::shared_ptr<Material> floorMat = std::shared_ptr<Material>(new Material());
 	floorMat->AttachTexture("Images/BrickWall/brickwall.jpg", TextureType::DIFFUSE);
 	floorMat->AttachTexture("Images/BrickWall/brickwall_normal.jpg", TextureType::NORMAL);
 
-	Material* brickMat = new Material();
+	std::shared_ptr<Material> brickMat = std::shared_ptr<Material>(new Material());
 	brickMat->AttachTexture("Images/RyanBrickTextures/wall_BaseColor.png", TextureType::DIFFUSE);
 	brickMat->AttachTexture("Images/RyanBrickTextures/wall_Normal.png", TextureType::NORMAL);
 	brickMat->AttachTexture("Images/RyanBrickTextures/wall_height.png", TextureType::HEIGHT);
@@ -197,7 +194,7 @@ bool Scene0::OnCreate() {
 	GameObject* refractionBox = new GameObject;
 	refractionBox->AttachMesh(new Mesh(EMeshType::CUBE));
 	refractionBox->GetMesh()->material = brickMat;
-	refractionBox->AttachShader(new Shader("Shaders/refractionShader.vert","Shaders/refractionShader.frag"), "refractionShader");
+	refractionBox->AttachShader(std::shared_ptr<Shader>(new Shader("Shaders/refractionShader.vert", "Shaders/refractionShader.frag")), "refractionShader");
 	refractionBox->_transform->SetPosition(-6, 0.0, 0.0);
 	GameObjects.push_back(refractionBox);
 
@@ -206,7 +203,7 @@ bool Scene0::OnCreate() {
 	nanoSuit->_transform->SetPosition(0.0, -5.0, -5.0);
 	nanoSuit->_transform->SetAxisAngleDeg(0,1,0,0);
 	nanoSuit->_transform->SetScale(0.3f, 0.3f, 0.3f);
-	nanoSuit->AttachShader(new Shader("Shaders/modelShader.vert","Shaders/modelShader.frag"), "modelShader");
+	nanoSuit->AttachShader(std::shared_ptr<Shader>(new Shader("Shaders/modelShader.vert", "Shaders/modelShader.frag")), "modelShader");
 	GameObjects.push_back(nanoSuit);
 
 	nM->AttachListener(viewCamera);
@@ -288,7 +285,7 @@ void Scene0::Render() const{
 
 	for (int i = 0; i <= ShaderManager::GetInstance()->GetNumShaders() - 1; i++)
 	{
-		Shader* shader = ShaderManager::GetInstance()->GetShader(i);
+		std::shared_ptr<Shader> shader = ShaderManager::GetInstance()->GetShader(i);
 		if (shader){
 			shader->Use();
 			glUniformMatrix4fv(glGetUniformLocation(shader->Program, "lightSpaceMatrix"), 1, GL_FALSE, &lightSpaceMatrix[0][0]);

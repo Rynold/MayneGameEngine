@@ -71,11 +71,11 @@ public:
 		_transform->SetAxisAngleDeg(x, y, z, w);
 	}
 
-	void Draw(Shader* shader);
+	void Draw(std::shared_ptr<Shader> shader);
 
-	virtual Shader* GetShader();
+	virtual std::shared_ptr<Shader> GetShader();
 
-	void AttachShader(Shader* shader, const char* name);
+	void AttachShader(std::shared_ptr<Shader> shader, const char* name);
 
 	btRigidBody* body;
 

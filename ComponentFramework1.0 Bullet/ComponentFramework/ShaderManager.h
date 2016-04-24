@@ -5,21 +5,22 @@
 
 #include "Shader.h"
 #include <map>
+#include <memory>
 
 class ShaderManager
 {
 public:
 	static ShaderManager* GetInstance();
 
-	Shader* Contains(const char* id);
+	std::shared_ptr<Shader> Contains(const char* id);
 
-	const char* Insert(const char* id, Shader* shader);
+	const char* Insert(const char* id, std::shared_ptr<Shader> shader);
 
 	void SendLightingDataToShaders();
 
 	int GetNumShaders();
 
-	Shader* GetShader(int i);
+	std::shared_ptr<Shader> GetShader(int i);
 
 	void Delete();
 
@@ -35,7 +36,7 @@ private:
 	ShaderManager();
 	
 
-	std::map<const char*,Shader*> shaders;
+	std::map<const char*,std::shared_ptr<Shader>> shaders;
 
 	static ShaderManager* instance;
 
