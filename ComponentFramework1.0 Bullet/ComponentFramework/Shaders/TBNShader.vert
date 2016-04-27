@@ -5,7 +5,7 @@ layout (location = 2) in vec2 vTexCoord;
 layout (location = 3) in vec3 tangent;
 layout (location = 4) in vec3 bitangent;
 
-uniform mat4 RotationMatrix;
+uniform mat4 ModelViewMatrix;
 uniform mat4 ProjectionMatrix;
 uniform mat4 CameraViewMatrix;
 uniform mat4 lightSpaceMatrix;
@@ -20,14 +20,13 @@ void main()
 {	
 	//Color = VertexColor;
 	texCoord = vTexCoord;
-	Normal = mat3(transpose(inverse(RotationMatrix))) * normal;
-	FragPos = vec3(RotationMatrix * vPosition);
-	gl_Position = ProjectionMatrix * CameraViewMatrix * RotationMatrix * vPosition;
+	Normal = mat3(transpose(inverse(ModelViewMatrix))) * normal;
+	FragPos = vec3(ModelViewMatrix * vPosition);
+	gl_Position = ProjectionMatrix * CameraViewMatrix * ModelViewMatrix * vPosition;
 	FragPosLightSpace = lightSpaceMatrix * vec4(FragPos, 1.0);
 
-	mat3 normalMatrix = transpose(inverse(mat3(RotationMatrix)));
+	mat3 normalMatrix = transpose(inverse(mat3(ModelViewMatrix)));
 	vec3 T = normalize(normalMatrix * tangent);
-	//vec3 B = normalize(normalMatrix * bitangent);
 	vec3 N = normalize(normalMatrix * normal);
 	
 	T = normalize(T - dot(T, N) * N);

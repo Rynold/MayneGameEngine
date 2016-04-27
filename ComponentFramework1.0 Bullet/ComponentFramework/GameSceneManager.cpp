@@ -44,7 +44,7 @@ void GameSceneManager::Run(){
 		Update(timer.GetDeltaTime());
 		Render();
 
-		/// Keeep the event loop running at a sane rate
+		/// Keep the event loop running at a sane rate
 		SDL_Delay(timer.GetSleepTime(frameRate));
 		///std::cout << "main loop running at: " << (1.0f/timer.GetDeltaTime()) << " frames/sec" << std::endl;
 		

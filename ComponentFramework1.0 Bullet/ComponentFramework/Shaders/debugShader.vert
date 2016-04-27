@@ -6,7 +6,6 @@ out vec4 in_color;
 
 uniform mat4 ProjectionMatrix;
 uniform mat4 ModelViewMatrix;
-uniform mat4 RotationMat;
 
 void main()
 {

@@ -29,7 +29,6 @@ namespace GAME {
 		virtual void MouseMotionEvent(const SDL_MouseMotionEvent &mouseEvent);*/
 		virtual void OnResize(int w_, int h_);
 
-		PointLight* pointLight;
 		DirectionalLight* dirLight;
 
 		GLuint depthMap;

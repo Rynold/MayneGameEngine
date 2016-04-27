@@ -18,10 +18,6 @@ Mesh::Mesh(EMeshType type)
 	}
 	break;
 	};
-
-	//material = new Material("Images/Parallax/wood.png", "Images/container_specular.png", "Images/Parallax/toy_box_normal.png", "Images/Parallax/bricks_normal.jpg", "Images/Parallax/toy_box_disp.png");
-	//material = new Material("Images/BrickWall/brickwall.jpg", "Images/container_specular.png", "Images/BrickWall/brickwall_normal.jpg");
-	//material = new Material("Images/RyanBrickTextures/wall_BaseColor.png", "Images/RyanBrickTextures/wall_Roughness.png", "Images/RyanBrickTextures/wall_Normal.png", "Images/RyanBrickTextures/wall_Roughness.png", "Images/RyanBrickTextures/wall_height.png");
 }
 
 Mesh::~Mesh()
@@ -30,7 +26,6 @@ Mesh::~Mesh()
 	glDeleteBuffers(1, &this->VBO);
 	glDeleteBuffers(1, &this->EBO);
 	glDeleteBuffers(1, &tangentBuffer);
-
 }
 
 void Mesh::initPlane()
@@ -97,114 +92,6 @@ void Mesh::initPlane()
 	glEnableVertexAttribArray(3);
 	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), BUFFER_OFFSET(0));
 
-}
-
-void Mesh::initCube()
-{
-	Vertex vert;
-	vert.Position = Vec3(-1.0, -1.0, 1.0);   // Front Bottom left / 0
-	vert.Normal = Vec3(0.0, 0.0, 1.0);
-	vert.TexCoords = Vec2(0.0, 1.0);
-	vertices.push_back(vert);
-
-	vert.Position = Vec3(1.0, -1.0, 1.0); // Front Bottom right / 1
-	vert.Normal = Vec3(0.0, 0.0, 1.0);
-	vert.TexCoords = Vec2(1.0, 1.0);
-	vertices.push_back(vert);
-
-	vert.Position = Vec3(1.0, 1.0, 1.0); // Front Top Right / 2
-	vert.Normal = Vec3(0.0, 0.0, 1.0);
-	vert.TexCoords = Vec2(1.0, 0.0);
-	vertices.push_back(vert);
-
-	vert.Position = Vec3(-1.0, 1.0, 1.0); // Front Top Left / 3
-	vert.Normal = Vec3(0.0, 0.0, 1.0);
-	vert.TexCoords = Vec2(0.0, 0.0);
-	vertices.push_back(vert);
-
-	vert.Position = Vec3(-1.0, -1.0, -1.0); // Back Botton Left / 4
-	vert.Normal = Vec3(-1.0, 0.0, 0.0);
-	vert.TexCoords = Vec2(0.0, 1.0);
-	vertices.push_back(vert);
-
-	vert.Position = Vec3(-1.0, 1.0, -1.0); // Back Top Left / 5
-	vert.Normal = Vec3(-1.0, 0.0, 0.0);
-	vert.TexCoords = Vec2(1.0, 1.0);
-	vertices.push_back(vert);
-
-	vert.Position = Vec3(1.0, 1.0, -1.0); // Back Top Right / 6
-	vert.Normal = Vec3(-1.0, 0.0, 0.0);
-	vert.TexCoords = Vec2(1.0, 0.0);
-	vertices.push_back(vert);
-
-	vert.Position = Vec3(1.0, -1.0, -1.0); // Back Bottom Right / 7
-	vert.Normal = Vec3(-1.0, 0.0, 0.0);
-	vert.TexCoords = Vec2(0.0, 0.0);
-	vertices.push_back(vert);
-
-	// Front face
-	indices.push_back(0);
-	indices.push_back(1);
-	indices.push_back(3);
-
-	indices.push_back(1);
-	indices.push_back(2);
-	indices.push_back(3);
-
-	// Back Face
-	indices.push_back(4);
-	indices.push_back(5);
-	indices.push_back(7);
-
-	indices.push_back(5);
-	indices.push_back(6);
-	indices.push_back(7);
-
-	// Top Face
-	indices.push_back(3);
-	indices.push_back(2);
-	indices.push_back(5);
-
-	indices.push_back(2);
-	indices.push_back(5);
-	indices.push_back(6);
-
-	//Bottom Face
-	indices.push_back(0);
-	indices.push_back(1);
-	indices.push_back(4);
-
-	indices.push_back(1);
-	indices.push_back(4);
-	indices.push_back(7);
-
-	//Right Face
-	indices.push_back(1);
-	indices.push_back(2);
-	indices.push_back(6);
-
-	indices.push_back(2);
-	indices.push_back(6);
-	indices.push_back(7);
-
-	//Left Face
-	indices.push_back(0);
-	indices.push_back(3);
-	indices.push_back(4);
-
-	indices.push_back(3);
-	indices.push_back(5);
-	indices.push_back(4);
-
-	/*Texture texture;
-	texture.id = textureID;
-	texture.path = path;*/
-
-	//textures.insert(textures.end(), texture);
-
-	material = std::shared_ptr<Material>(new Material());
-
-	this->setupMesh();
 }
 
 void Mesh::initLightCube()
@@ -372,12 +259,6 @@ void Mesh::Draw(std::shared_ptr<Shader> shader)
 	glDrawElements(GL_TRIANGLES, this->indices.size(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 
-	// Always good practice to set everything back to defaults once configured.
-	for (GLuint i = 0; i < this->textures.size(); i++)
-	{
-		glActiveTexture(GL_TEXTURE0 + i);
-		glBindTexture(GL_TEXTURE_2D, 0);
-	}
 }
 
 void Mesh::DrawPlane(std::shared_ptr<Shader> shader)// , GLuint shadowMap, GLuint skybox, bool reflective)
@@ -389,19 +270,22 @@ void Mesh::DrawPlane(std::shared_ptr<Shader> shader)// , GLuint shadowMap, GLuin
 	glBindVertexArray(0);
 }
 
-void Mesh::DrawMesh(std::shared_ptr<Shader> shader)//, GLuint shadowMap, GLuint skybox, bool reflective)
+void Mesh::DrawMesh(std::shared_ptr<Shader> shader)
 {
+	//Find out what type of mesh it is then drawn it accordingly.
+	//This can be improved if I use the number of vertices for the
+	//mesh. because all the draw calls are practically the same.
 	if (type == CUBE)
-		DrawCube(shader);// , shadowMap, skybox, reflective);
+		DrawCube(shader);
 	else if (type == PLANE)
 		DrawPlane(shader);
 	else if (type == CUSTOM)
 		Draw(shader);
 }
 
-void Mesh::DrawCube(std::shared_ptr<Shader> shader)//, GLuint shadowMap, GLuint skybox, bool reflective)
+void Mesh::DrawCube(std::shared_ptr<Shader> shader)
 {
-	material->SetupShader(shader);// , shadowMap, skybox, reflective);
+	material->SetupShader(shader);
 	
 	glBindVertexArray(this->VAO);
 	glDrawArrays(GL_TRIANGLES, 0, 36);

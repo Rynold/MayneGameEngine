@@ -72,7 +72,6 @@ private:
 	/*  Render data  */
 	GLuint VAO, VBO, EBO, tangentBuffer;
 
-	void initCube();
 	void initLightCube();
 	void initPlane();
 	/*  Functions    */

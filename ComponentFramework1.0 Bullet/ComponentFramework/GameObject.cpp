@@ -74,9 +74,11 @@ void GameObject::Draw(std::shared_ptr<Shader> shader)
 		glm::mat4 rotate = glm::rotate(scale, _transform->Rotation().w, glm::vec3(_transform->Rotation().x, _transform->Rotation().y, _transform->Rotation().z));
 		glm::mat4 translation = glm::translate(rotate, glm::vec3(_transform->Position().x, _transform->Position().y, _transform->Position().z));*/
 		//glUniformMatrix4fv(glGetUniformLocation(shader->Program, "RotationMatrix"), 1, GL_FALSE, &translation[0][0]);
+		
+		//Get the matrix from bullet and draw the mesh.
 		GLfloat mat[16];
 		_transform->GetBulletTransform().getOpenGLMatrix(&mat[0]);
-		glUniformMatrix4fv(glGetUniformLocation(shader->Program, "RotationMatrix"), 1, GL_FALSE, &mat[0]);
+		glUniformMatrix4fv(glGetUniformLocation(shader->Program, "ModelViewMatrix"), 1, GL_FALSE, &mat[0]);
 
 
 		for (int i = 0; i < (int)meshs.size(); ++i){
@@ -99,4 +101,14 @@ std::shared_ptr<Shader> GameObject::GetShader()
 void GameObject::AttachShader(std::shared_ptr<Shader> shader, const char* name)
 {
 	shaderID = ShaderManager::GetInstance()->Insert(name, shader);
+}
+
+void GameObject::OnHit(GameObject* other)
+{
+
+}
+
+void GameObject::OnOverlap(GameObject* other)
+{
+
 }

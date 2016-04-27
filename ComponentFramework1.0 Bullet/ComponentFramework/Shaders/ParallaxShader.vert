@@ -4,7 +4,7 @@ layout (location = 1) in vec3 normal;
 layout (location = 2) in vec2 vTexCoord;
 layout (location = 3) in vec3 tangent;
 
-uniform mat4 RotationMatrix;
+uniform mat4 ModelViewMatrix;
 uniform mat4 ProjectionMatrix;
 uniform mat4 CameraViewMatrix;
 uniform mat4 lightSpaceMatrix;
@@ -23,12 +23,12 @@ void main()
 	
 	// When you get the inverse transpose of the RotationMatrix it will return a matrix
 	// That only has the rotation.
-	mat3 normalMatrix = transpose(inverse(mat3(RotationMatrix)));
+	mat3 normalMatrix = transpose(inverse(mat3(ModelViewMatrix)));
 	Normal = normalMatrix * normal;
-	Position = vec3(RotationMatrix * vPosition);
+	Position = vec3(ModelViewMatrix * vPosition);
 	
-	FragPos = vec3(RotationMatrix * vPosition);
-	gl_Position = ProjectionMatrix * CameraViewMatrix * RotationMatrix * vPosition;
+	FragPos = vec3(ModelViewMatrix * vPosition);
+	gl_Position = ProjectionMatrix * CameraViewMatrix * ModelViewMatrix * vPosition;
 	FragPosLightSpace = lightSpaceMatrix * vec4(FragPos, 1.0);
 
 	//Transform the vectors to the coordinate system we'd like to work in.

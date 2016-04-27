@@ -18,8 +18,6 @@ Scene0::Scene0(class Window& windowRef):  Scene(windowRef) {
 	sceneShader = std::shared_ptr<Shader>(new Shader("Shaders/ParallaxShader.vert", "Shaders/ParallaxShader.frag"));
 	skyboxShader = std::shared_ptr<Shader>(new Shader("Shaders/skybox.vert", "Shaders/skybox.frag"));
 	reflectiveShader = std::shared_ptr<Shader>(new Shader("Shaders/reflectionShader.vert", "Shaders/reflectionShader.frag"));
-	sceneShader->Use();
-	pointLight = new PointLight();
 	dirLight = new DirectionalLight();
 	skybox = new Skybox();
 	bP = new BulletPhysics();
@@ -56,8 +54,6 @@ Scene0::Scene0(class Window& windowRef):  Scene(windowRef) {
 }
 
 Scene0::~Scene0(){ 
-	delete pointLight;
-	pointLight = nullptr;
 
 	delete dirLight;
 	dirLight = nullptr;
@@ -160,7 +156,12 @@ bool Scene0::OnCreate() {
 	{
 		GameObject* cube = new GameObject();
 		cube->AttachMesh(new Mesh(EMeshType::CUBE));
-		cube->GetMesh()->material = boxMat;
+
+		if (i % 2 == 0)
+			cube->GetMesh()->material = brickMat;
+		else
+			cube->GetMesh()->material = boxMat;
+
 		cube->AttachShader(sceneShader, "sceneShader");
 
 		cube->_transform->SetPosition(0, 2.5f * i, 0);
@@ -208,7 +209,6 @@ bool Scene0::OnCreate() {
 
 	nM->AttachListener(viewCamera);
 
-	pointLight->_transform->SetPosition(0.0, 0.0, 2.0);
 	dirLight->_transform->SetPosition(-4.0, 8.0, -2.0);
 
 	sceneShader->Use();
@@ -264,25 +264,30 @@ void Scene0::Render() const{
 
 	dirLight->CreateDepthMap(GameObjects, lightSpaceMatrix);
 
-	//Uniforms::SetLightSpaceMatrix(lightSpaceMatrix);
 	//Bind the original frame buffer again
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-	/// Draw your scene here
 	glViewport(0, 0, windowPtr->GetWidth(), windowPtr->GetHeight());
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
 	// Draw the skybox first
 	glm::mat4 projectionMatrix = glm::perspective(45.0f, (float)windowPtr->GetWidth() / (float)windowPtr->GetHeight(), 0.1f, 100.f);
-	glm::mat4 modelViewMatrix = glm::mat4(glm::mat3(viewCamera->GetViewMatrix()));
+	
+	//By converting the mat4 into a mat3 we only take the rotation and scaling of the camera
+	glm::mat4 cameraViewMatrix = glm::mat4(glm::mat3(viewCamera->GetViewMatrix()));
 
+	//It would be an optimization to draw the skybox last. By drawing it first you're running the frag
+	//shader for every pixel where not every pixel of the skybox will be visible after the rest of
+	//the scene is drawn.
 	skyboxShader->Use();
 	glUniformMatrix4fv(glGetUniformLocation(skyboxShader->Program, "ProjectionMatrix"), 1, GL_FALSE, &projectionMatrix[0][0]);
-	glUniformMatrix4fv(glGetUniformLocation(skyboxShader->Program, "CameraViewMatrix"), 1, GL_FALSE, &modelViewMatrix[0][0]);
+	glUniformMatrix4fv(glGetUniformLocation(skyboxShader->Program, "CameraViewMatrix"), 1, GL_FALSE, &cameraViewMatrix[0][0]);
 	skybox->Render(skyboxShader);
 
-	modelViewMatrix = viewCamera->GetViewMatrix();
+	cameraViewMatrix = viewCamera->GetViewMatrix();
 
+	//Pass all the relevant data to all the shaders. In order to optimize this I will be making child
+	//classes of the shader class that will only take the required uniforms from a global unifrom class.
 	for (int i = 0; i <= ShaderManager::GetInstance()->GetNumShaders() - 1; i++)
 	{
 		std::shared_ptr<Shader> shader = ShaderManager::GetInstance()->GetShader(i);
@@ -290,7 +295,7 @@ void Scene0::Render() const{
 			shader->Use();
 			glUniformMatrix4fv(glGetUniformLocation(shader->Program, "lightSpaceMatrix"), 1, GL_FALSE, &lightSpaceMatrix[0][0]);
 			glUniformMatrix4fv(glGetUniformLocation(shader->Program, "ProjectionMatrix"), 1, GL_FALSE, &projectionMatrix[0][0]);
-			glUniformMatrix4fv(glGetUniformLocation(shader->Program, "CameraViewMatrix"), 1, GL_FALSE, &modelViewMatrix[0][0]);
+			glUniformMatrix4fv(glGetUniformLocation(shader->Program, "CameraViewMatrix"), 1, GL_FALSE, &cameraViewMatrix[0][0]);
 			glUniform3f(glGetUniformLocation(shader->Program, "viewPos"), viewCamera->_transform->Position().x, viewCamera->_transform->Position().y, viewCamera->_transform->Position().z);
 
 			glUniform1i(glGetUniformLocation(shader->Program, "shadowMap"), 5);
@@ -302,17 +307,17 @@ void Scene0::Render() const{
 			glBindTexture(GL_TEXTURE_CUBE_MAP, skybox->texture);
 		}
 	}
-	
 
-
+	//Draw all the game ojects
 	for each(GameObject* object in GameObjects)
 	{
 		object->Draw(object->GetShader());// , dirLight->depthMap, skybox->texture, object->reflective);
 	}
 
+	//If you are in debug, draw the debug.
 	if (drawDebug){
 		bP->m_dynamicsWorld->debugDrawWorld();
-		((GLDebugDrawer*)bP->m_dynamicsWorld->getDebugDrawer())->DrawWorld(projectionMatrix, modelViewMatrix);
+		((GLDebugDrawer*)bP->m_dynamicsWorld->getDebugDrawer())->DrawWorld(projectionMatrix, cameraViewMatrix);
 	}
 
 	SDL_GL_SwapWindow(windowPtr->getSDLWindow());

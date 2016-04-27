@@ -7,14 +7,14 @@ out vec2 TexCoords;
 out vec3 fragPosition;
 out vec3 Normal;
 
-uniform mat4 RotationMatrix;
+uniform mat4 ModelViewMatrix;
 uniform mat4 ProjectionMatrix;
 uniform mat4 CameraViewMatrix;
 
 void main()
 {
-    gl_Position = ProjectionMatrix * CameraViewMatrix * RotationMatrix * vPosition;
-    fragPosition = vec3(RotationMatrix * vPosition);
-    Normal = mat3(transpose(inverse(RotationMatrix))) * normal;
+    gl_Position = ProjectionMatrix * CameraViewMatrix * ModelViewMatrix * vPosition;
+    fragPosition = vec3(ModelViewMatrix * vPosition);
+    Normal = mat3(transpose(inverse(ModelViewMatrix))) * normal;
     TexCoords = vTexCoord;
 }

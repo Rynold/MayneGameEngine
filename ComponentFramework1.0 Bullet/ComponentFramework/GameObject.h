@@ -93,6 +93,10 @@ public:
 		return meshs[index];
 	}
 
+	virtual void OnHit(GameObject* other);
+
+	virtual void OnOverlap(GameObject* other);
+
 private:
 
 	std::vector<Component*> components;
